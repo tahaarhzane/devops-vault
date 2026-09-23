@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="220" viewBox="0 0 860 220" role="img" aria-label="Un Chart Helm est installé/mis à jour en Release, qui crée des ressources sur le cluster Kubernetes" style="font-family: Helvetica, Arial, sans-serif;">
+  <title>Chart → Release → Cluster Kubernetes</title>
+
+  <defs>
+    <marker id="hArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563EB"/>
+    </marker>
+    <g id="icoFileH" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5,2 H12 L16,6 V18 H5 Z"/>
+      <path d="M12,2 V6 H16"/>
+      <line x1="7.5" y1="10" x2="13.5" y2="10"/>
+      <line x1="7.5" y1="13" x2="13.5" y2="13"/>
+      <line x1="7.5" y1="16" x2="11" y2="16"/>
+    </g>
+    <g id="icoCheckH" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="10" cy="10" r="7.5"/>
+      <polyline points="6.5,10.2 9,13 14,7.5"/>
+    </g>
+    <g id="icoServerH" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="4" y="2" width="12" height="16" rx="1.5"/>
+      <line x1="6" y1="7" x2="14" y2="7"/>
+      <line x1="6" y1="11" x2="14" y2="11"/>
+      <line x1="6" y1="15" x2="14" y2="15"/>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="860" height="220" fill="#ffffff"/>
+
+  <!-- Chart -->
+  <rect x="20" y="60" width="180" height="100" rx="8" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/>
+  <use href="#icoFileH" transform="translate(32,72) scale(0.9)" stroke="#1E3A8A"/>
+  <text x="110" y="106" text-anchor="middle" font-size="13" font-weight="700" fill="#1E3A8A">Chart</text>
+  <text x="110" y="126" text-anchor="middle" font-size="9.5" fill="#1E3A8A">Chart.yaml + values.yaml</text>
+  <text x="110" y="144" text-anchor="middle" font-size="9.5" fill="#1E3A8A">templates/ (Go templates)</text>
+
+  <!-- Release -->
+  <rect x="340" y="60" width="180" height="100" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <use href="#icoCheckH" transform="translate(352,72) scale(0.9)" stroke="#1E3A8A"/>
+  <text x="430" y="106" text-anchor="middle" font-size="13" font-weight="700" fill="#1E3A8A">Release</text>
+  <text x="430" y="126" text-anchor="middle" font-size="9.5" fill="#1E3A8A">manifestes K8s rendus</text>
+  <text x="430" y="144" text-anchor="middle" font-size="9.5" fill="#1E3A8A">versionnée (helm history)</text>
+
+  <!-- Cluster -->
+  <rect x="660" y="60" width="180" height="100" rx="8" fill="#ECFDF5" stroke="#059669" stroke-width="1.5"/>
+  <use href="#icoServerH" transform="translate(672,72) scale(0.9)" stroke="#065F46"/>
+  <text x="750" y="106" text-anchor="middle" font-size="13" font-weight="700" fill="#065F46">Cluster Kubernetes</text>
+  <text x="750" y="126" text-anchor="middle" font-size="9.5" fill="#065F46">ressources K8s</text>
+  <text x="750" y="144" text-anchor="middle" font-size="9.5" fill="#065F46">créées via l'apiserver</text>
+
+  <!-- Arrows -->
+  <line x1="200" y1="110" x2="338" y2="110" stroke="#2563EB" stroke-width="1.5" marker-end="url(#hArrow)"/>
+  <text x="270" y="100" text-anchor="middle" font-size="9" fill="#1E3A8A">helm install / upgrade</text>
+
+  <line x1="520" y1="110" x2="658" y2="110" stroke="#2563EB" stroke-width="1.5" marker-end="url(#hArrow)"/>
+  <text x="590" y="100" text-anchor="middle" font-size="9" fill="#1E3A8A">apply via l'apiserver</text>
+</svg>

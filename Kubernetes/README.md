@@ -40,6 +40,11 @@ Notes techniques sur Kubernetes : concepts, manifests, opérations, dépannage.
 
 - [operations-troubleshooting.md](operations-troubleshooting.md) — maintenance de nœuds, rollout, diagnostic d'un pod
 
+### 🚀 Déploiement & Infrastructure as Code
+
+- [helm.md](helm.md) — Chart, Release, templating, bonnes pratiques
+- [deploiement-iac.md](deploiement-iac.md) — comparatif manifeste YAML / Kustomize / Helm / Terraform
+
 ## Ordre de lecture conseillé
 
 Pour découvrir Kubernetes de zéro : **architecture → pods → workloads-deployment →
