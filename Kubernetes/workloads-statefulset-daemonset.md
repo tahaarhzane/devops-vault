@@ -30,13 +30,7 @@ Utilisé quand les pods ont besoin :
 Cas d'usage typiques : bases de données (PostgreSQL, MongoDB en cluster), Kafka,
 Elasticsearch, Zookeeper.
 
-```mermaid
-flowchart TB
-    SS["StatefulSet: app"] --> P0["app-0"] & P1["app-1"] & P2["app-2"]
-    P0 --- PVC0[("PVC app-0")]
-    P1 --- PVC1[("PVC app-1")]
-    P2 --- PVC2[("PVC app-2")]
-```
+![[statefulset-pvc.svg]]
 
 ### DaemonSet
 

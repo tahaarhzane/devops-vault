@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 300" role="img" aria-label="StatefulSet créant trois pods numérotés, chacun avec son propre PVC" style="font-family: Helvetica, Arial, sans-serif;">
+  <title>StatefulSet : pods numérotés avec stockage dédié</title>
+
+  <defs>
+    <marker id="sArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563EB"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="620" height="300" fill="#ffffff"/>
+
+  <text x="310" y="18" text-anchor="middle" font-size="10" fill="#4B5563">crée dans l'ordre 0 → 1 → 2, supprime en ordre inverse</text>
+
+  <!-- StatefulSet -->
+  <rect x="220" y="24" width="180" height="50" rx="8" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="310" y="54" text-anchor="middle" font-size="12.5" fill="#1E3A8A">StatefulSet: app</text>
+
+  <!-- fan to pods -->
+  <line x1="310" y1="74" x2="100" y2="118" stroke="#2563EB" stroke-width="1.5" marker-end="url(#sArrow)"/>
+  <line x1="310" y1="74" x2="310" y2="118" stroke="#2563EB" stroke-width="1.5" marker-end="url(#sArrow)"/>
+  <line x1="310" y1="74" x2="520" y2="118" stroke="#2563EB" stroke-width="1.5" marker-end="url(#sArrow)"/>
+
+  <!-- Pods -->
+  <rect x="30" y="120" width="140" height="50" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="100" y="150" text-anchor="middle" font-size="12.5" fill="#1E3A8A">app-0</text>
+
+  <rect x="240" y="120" width="140" height="50" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="310" y="150" text-anchor="middle" font-size="12.5" fill="#1E3A8A">app-1</text>
+
+  <rect x="450" y="120" width="140" height="50" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="520" y="150" text-anchor="middle" font-size="12.5" fill="#1E3A8A">app-2</text>
+
+  <!-- connectors to PVC -->
+  <line x1="100" y1="170" x2="100" y2="208" stroke="#6B7280" stroke-width="1.5" marker-end="url(#sArrow)"/>
+  <line x1="310" y1="170" x2="310" y2="208" stroke="#6B7280" stroke-width="1.5" marker-end="url(#sArrow)"/>
+  <line x1="520" y1="170" x2="520" y2="208" stroke="#6B7280" stroke-width="1.5" marker-end="url(#sArrow)"/>
+
+  <!-- PVC cylinders -->
+  <g>
+    <rect x="30" y="210" width="140" height="50" fill="#DBEAFE"/>
+    <line x1="30" y1="210" x2="30" y2="260" stroke="#2563EB" stroke-width="1.5"/>
+    <line x1="170" y1="210" x2="170" y2="260" stroke="#2563EB" stroke-width="1.5"/>
+    <path d="M30,260 A70,10 0 0,0 170,260" fill="none" stroke="#2563EB" stroke-width="1.5"/>
+    <ellipse cx="100" cy="210" rx="70" ry="10" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+    <text x="100" y="245" text-anchor="middle" font-size="10.5" fill="#1E3A8A">PVC app-0</text>
+  </g>
+
+  <g>
+    <rect x="240" y="210" width="140" height="50" fill="#DBEAFE"/>
+    <line x1="240" y1="210" x2="240" y2="260" stroke="#2563EB" stroke-width="1.5"/>
+    <line x1="380" y1="210" x2="380" y2="260" stroke="#2563EB" stroke-width="1.5"/>
+    <path d="M240,260 A70,10 0 0,0 380,260" fill="none" stroke="#2563EB" stroke-width="1.5"/>
+    <ellipse cx="310" cy="210" rx="70" ry="10" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+    <text x="310" y="245" text-anchor="middle" font-size="10.5" fill="#1E3A8A">PVC app-1</text>
+  </g>
+
+  <g>
+    <rect x="450" y="210" width="140" height="50" fill="#DBEAFE"/>
+    <line x1="450" y1="210" x2="450" y2="260" stroke="#2563EB" stroke-width="1.5"/>
+    <line x1="590" y1="210" x2="590" y2="260" stroke="#2563EB" stroke-width="1.5"/>
+    <path d="M450,260 A70,10 0 0,0 590,260" fill="none" stroke="#2563EB" stroke-width="1.5"/>
+    <ellipse cx="520" cy="210" rx="70" ry="10" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+    <text x="520" y="245" text-anchor="middle" font-size="10.5" fill="#1E3A8A">PVC app-2</text>
+  </g>
+</svg>
