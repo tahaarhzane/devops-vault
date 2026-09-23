@@ -17,13 +17,7 @@ par labels.
 
 ### Fonctionnement
 
-```mermaid
-flowchart LR
-    C["Client (pod ou externe)"] --> SVC["Service\nClusterIP: 10.96.x.x"]
-    SVC -->|selector: app=api| P1["Pod api-1"]
-    SVC --> P2["Pod api-2"]
-    SVC --> P3["Pod api-3"]
-```
+![[service-endpoints.svg]]
 
 Un Service ne route pas activement le trafic lui-même : **kube-proxy**, sur chaque nœud,
 maintient des règles (iptables ou IPVS) qui redirigent le trafic vers la ClusterIP directement
