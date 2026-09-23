@@ -15,7 +15,7 @@ ou des applications.
 
 ## Notes
 
-### Ce que le namespace isole
+### 🏷️ Ce que le namespace isole
 
 - **Noms d'objets** : deux objets peuvent avoir le même nom dans deux namespaces différents
   — l'unicité est garantie par le couple (`nom`, `namespace`), pas par le nom seul. C'est
@@ -26,7 +26,7 @@ ou des applications.
   namespace précis
 - **NetworkPolicy** : peuvent restreindre le trafic entre namespaces
 
-### Ce que le namespace n'isole PAS
+### 🚫 Ce que le namespace n'isole PAS
 
 - Les **nœuds** : pas de cloisonnement physique, les pods de namespaces différents peuvent
   tourner sur le même nœud et partager ses ressources CPU/mémoire réelles (sauf
@@ -34,7 +34,7 @@ ou des applications.
 - Les ressources **cluster-scoped** : Node, PersistentVolume, StorageClass, ClusterRole,
   Namespace lui-même — ces objets n'appartiennent à aucun namespace
 
-### ResourceQuota et LimitRange
+### 📊 ResourceQuota et LimitRange
 
 - **ResourceQuota** : plafonne la consommation totale d'un namespace (CPU/mémoire totale,
   nombre max de pods, [PVC](stockage.md), [Services](services-reseau.md)...). Empêche une
@@ -43,21 +43,24 @@ ou des applications.
   requests/limits **par pod/conteneur** dans le namespace — évite les pods sans limites
   définies.
 
-### Namespaces par défaut
+### 📁 Namespaces par défaut
 
-- `default` : namespace utilisé si aucun n'est spécifié
-- `kube-system` : composants internes de Kubernetes (CoreDNS, kube-proxy...)
-- `kube-public` : lisible par tous, données publiques du cluster
-- `kube-node-lease` : objets Lease pour la heartbeat des nœuds
+| Namespace | Rôle |
+|---|---|
+| `default` | utilisé si aucun n'est spécifié |
+| `kube-system` | composants internes de Kubernetes (CoreDNS, kube-proxy...) |
+| `kube-public` | lisible par tous, données publiques du cluster |
+| `kube-node-lease` | objets Lease pour la heartbeat des nœuds |
 
-### Points de vigilance
+> [!CAUTION]
+> Supprimer un namespace supprime **en cascade** tous les objets qu'il contient — action
+> irréversible sans backup (etcd snapshot ou sauvegarde applicative).
 
-- Supprimer un namespace supprime **en cascade** tous les objets qu'il contient — action
-  irréversible sans backup (etcd snapshot ou sauvegarde applicative).
-- Sans `NetworkPolicy`, tous les pods peuvent communiquer entre eux **quel que soit le
-  namespace** par défaut (le cloisonnement réseau n'est pas automatique).
-- Un cluster multi-tenant sérieux combine namespace + RBAC + ResourceQuota + NetworkPolicy
-  — le namespace seul n'est qu'une étiquette organisationnelle.
+> [!WARNING]
+> - Sans `NetworkPolicy`, tous les pods peuvent communiquer entre eux **quel que soit le
+>   namespace** par défaut (le cloisonnement réseau n'est pas automatique).
+> - Un cluster multi-tenant sérieux combine namespace + RBAC + ResourceQuota + NetworkPolicy
+>   — le namespace seul n'est qu'une étiquette organisationnelle.
 
 ## Références
 

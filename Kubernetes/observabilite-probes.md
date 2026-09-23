@@ -15,7 +15,7 @@ explicitement via des probes. Mal configurées, elles causent plus d'incidents q
 
 ## Notes
 
-### Les trois probes
+### 💓 Les trois probes
 
 ![Arbre de décision des probes](assets/probes-flow.svg)
 
@@ -31,17 +31,19 @@ explicitement via des probes. Mal configurées, elles causent plus d'incidents q
   pour le fonctionnement des Endpoints). À utiliser pour les dépendances externes (DB, cache)
   et la charge temporaire.
 
-### Types de vérification
+### 🔍 Types de vérification
 
-- `httpGet` : requête HTTP, succès si code 200-399
-- `tcpSocket` : simple ouverture de connexion TCP
-- `exec` : exécution d'une commande dans le conteneur, succès si exit code 0
-- `grpc` : health check natif gRPC (protocole standard `grpc.health.v1`)
+| Type | Condition de succès |
+|---|---|
+| `httpGet` | requête HTTP, code de réponse 200-399 |
+| `tcpSocket` | simple ouverture de connexion TCP |
+| `exec` | exécution d'une commande dans le conteneur, exit code 0 |
+| `grpc` | health check natif gRPC (protocole standard `grpc.health.v1`) |
 
 Paramètres communs : `initialDelaySeconds`, `periodSeconds`, `timeoutSeconds`,
 `failureThreshold`, `successThreshold`.
 
-### Logs
+### 📜 Logs
 
 - Les logs d'un conteneur = ce qui est écrit sur **stdout/stderr**, récupérés via
   `kubectl logs` (lit les fichiers gérés par le container runtime sur le nœud).
@@ -54,14 +56,13 @@ Paramètres communs : `initialDelaySeconds`, `periodSeconds`, `timeoutSeconds`,
 - `kubectl logs --previous` : logs du conteneur précédent, indispensable pour diagnostiquer
   un crash (CrashLoopBackOff).
 
-### Points de vigilance
-
-- Une `livenessProbe` qui dépend d'une ressource externe (DB down) peut provoquer un
-  redémarrage en cascade de tous les pods sans résoudre le problème réel.
-- `initialDelaySeconds` trop court sur liveness = redémarrages intempestifs au démarrage
-  → préférer un `startupProbe` dédié plutôt que d'allonger le délai de liveness.
-- Sans `readinessProbe`, un pod est considéré Ready dès sa création → peut recevoir du
-  trafic avant d'être réellement prêt.
+> [!WARNING]
+> - Une `livenessProbe` qui dépend d'une ressource externe (DB down) peut provoquer un
+>   redémarrage en cascade de tous les pods sans résoudre le problème réel.
+> - `initialDelaySeconds` trop court sur liveness = redémarrages intempestifs au démarrage
+>   → préférer un `startupProbe` dédié plutôt que d'allonger le délai de liveness.
+> - Sans `readinessProbe`, un pod est considéré Ready dès sa création → peut recevoir du
+>   trafic avant d'être réellement prêt.
 
 ## Références
 

@@ -14,7 +14,7 @@ quelque chose ne va pas.
 
 ## Notes
 
-### Maintenance de nœuds
+### 🖥️ Maintenance de nœuds
 
 ![Cycle cordon, drain, maintenance, uncordon](assets/node-maintenance-cycle.svg)
 
@@ -26,12 +26,13 @@ quelque chose ne va pas.
   `--delete-emptydir-data`.
 - `kubectl uncordon <node>` : réautorise le scheduling sur le nœud.
 
-**PodDisruptionBudget (PDB)** : définit combien de pods d'une appli peuvent être
-indisponibles simultanément pendant une éviction volontaire (drain, upscale du cluster).
-Protège la disponibilité pendant les opérations de maintenance planifiées (n'a aucun effet
-sur les pannes non planifiées).
+> [!NOTE]
+> **PodDisruptionBudget (PDB)** : définit combien de pods d'une appli peuvent être
+> indisponibles simultanément pendant une éviction volontaire (drain, upscale du cluster).
+> Protège la disponibilité pendant les opérations de maintenance planifiées (n'a aucun effet
+> sur les pannes non planifiées).
 
-### Rollout et rollback
+### ⏮️ Rollout et rollback
 
 ```bash
 kubectl rollout status deployment/<name>       # suivre un déploiement en cours
@@ -43,7 +44,7 @@ kubectl rollout restart deployment/<name>      # forcer un redémarrage des pods
 
 Stratégies et détail du rollback : voir [workloads-deployment.md](workloads-deployment.md).
 
-### Démarche de troubleshooting d'un pod
+### 🩺 Démarche de troubleshooting d'un pod
 
 1. `kubectl get pods -n <ns>` : quel est l'état (Pending, CrashLoopBackOff, ImagePullBackOff...) ?
 2. `kubectl describe pod <name> -n <ns>` : section **Events** en bas — c'est souvent là
@@ -52,7 +53,7 @@ Stratégies et détail du rollback : voir [workloads-deployment.md](workloads-de
 4. `kubectl exec -it <pod> -n <ns> -- sh` : investiguer depuis l'intérieur si le conteneur
    tourne encore
 
-### États d'erreur courants
+### 🚨 États d'erreur courants
 
 | État | Cause probable |
 |---|---|
@@ -62,7 +63,7 @@ Stratégies et détail du rollback : voir [workloads-deployment.md](workloads-de
 | `OOMKilled` (dans les events) | mémoire insuffisante, `limits.memory` dépassée |
 | `0/1 Running` sans erreur visible | [`readinessProbe`](observabilite-probes.md) qui échoue en continu |
 
-### Commandes de diagnostic cluster
+### ⌨️ Commandes de diagnostic cluster
 
 ```bash
 kubectl get events -n <ns> --sort-by='.lastTimestamp'   # events récents du namespace
