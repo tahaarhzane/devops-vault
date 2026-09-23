@@ -29,7 +29,47 @@ cluster.
 
 ### 📄 Manifeste YAML brut
 
-Le socle de tout : `apiVersion`, `kind`, `metadata`, `spec`.
+Le socle de tout : `apiVersion`, `kind`, `metadata`, `spec`. Exemple complet — un Deployment
+et son Service, dans un seul fichier (le `---` sépare deux documents YAML indépendants) :
+
+```yaml
+apiVersion: apps/v1        # groupe/version de l'API qui gère ce type de ressource
+kind: Deployment            # le type de ressource à créer
+metadata:
+  name: mon-app             # nom de l'objet dans le cluster
+  labels:
+    app: mon-app
+spec:                        # "spec" = l'état désiré, propre à chaque kind
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mon-app           # doit matcher les labels du template ci-dessous
+  template:
+    metadata:
+      labels:
+        app: mon-app
+    spec:
+      containers:
+        - name: mon-app
+          image: mon-registre/mon-app:2.4.1
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+---
+apiVersion: v1               # groupe "core" (pas de préfixe) : v1 tout court
+kind: Service
+metadata:
+  name: mon-app
+spec:
+  selector:
+    app: mon-app              # sélectionne les pods créés par le Deployment ci-dessus
+  ports:
+    - port: 80
+      targetPort: 8080
+```
 
 ```bash
 kubectl apply -f deployment.yaml
@@ -39,6 +79,24 @@ kubectl apply -f deployment.yaml
 entre la dernière config appliquée (annotation `kubectl.kubernetes.io/last-applied-configuration`),
 l'état désiré du fichier, et l'état réel du cluster — permet des mises à jour incrémentales
 sans écraser des champs gérés ailleurs (ex. par un autoscaler).
+
+> [!IMPORTANT]
+> **Ce qui se passe concrètement après `kubectl apply`** — peu importe que le YAML vienne
+> d'un fichier brut, de Kustomize, de Helm ou de Terraform, la suite est identique :
+> 1. `kubectl` envoie le manifeste à l'**apiserver** (REST) qui valide son schéma et passe
+>    les admission controllers.
+> 2. L'objet est persisté dans **etcd**, source de vérité du cluster — voir
+>    [architecture.md](architecture.md).
+> 3. Le **Deployment controller** (dans kube-controller-manager) voit le nouvel objet et crée
+>    un **ReplicaSet** — voir [workloads-deployment.md](workloads-deployment.md).
+> 4. Le **ReplicaSet controller** crée les **Pods** demandés.
+> 5. Le **scheduler** assigne chaque Pod à un nœud selon les ressources disponibles — voir
+>    [scheduling-avance.md](scheduling-avance.md).
+> 6. Le **kubelet** du nœud choisi démarre les conteneurs via le container runtime — voir
+>    [pods.md](pods.md).
+>
+> C'est exactement la reconciliation loop décrite dans architecture.md : à chaque étape, un
+> controller différent compare l'état désiré à l'état réel et agit pour les rapprocher.
 
 ### 🧩 Kustomize
 
@@ -52,6 +110,30 @@ base/
 overlays/
   prod/
     kustomization.yaml   # patches : plus de réplicas, autre tag d'image...
+```
+
+**`base/kustomization.yaml`** — liste les manifestes de base, tels quels :
+```yaml
+resources:
+  - deployment.yaml
+```
+
+**`overlays/prod/kustomization.yaml`** — repart de la base et la patche :
+```yaml
+resources:
+  - ../../base
+
+patches:
+  - target:
+      kind: Deployment
+      name: mon-app
+    patch: |-
+      - op: replace
+        path: /spec/replicas
+        value: 5
+      - op: replace
+        path: /spec/template/spec/containers/0/image
+        value: mon-registre/mon-app:2.5.0
 ```
 
 ```bash
