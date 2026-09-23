@@ -4,39 +4,39 @@ Notes techniques sur Kubernetes : concepts, manifests, opérations, dépannage.
 
 ## Sommaire
 
-### Fondations
+### 🏗️ Fondations
 
 - [architecture.md](architecture.md) — control plane, worker nodes, reconciliation loop
 - [pods.md](pods.md) — unité de base, cycle de vie, init containers
 
-### Workloads
+### 📦 Workloads
 
 - [workloads-deployment.md](workloads-deployment.md) — Deployment, ReplicaSet, rolling update, rollback
 - [workloads-statefulset-daemonset.md](workloads-statefulset-daemonset.md) — apps stateful, agents par nœud
 - [workloads-job-cronjob.md](workloads-job-cronjob.md) — tâches ponctuelles et planifiées
 
-### Réseau & configuration
+### 🌐 Réseau & configuration
 
 - [services-reseau.md](services-reseau.md) — Service, types, DNS interne, kube-proxy
 - [configmap-secret.md](configmap-secret.md) — injection de configuration et de secrets
 
-### Stockage
+### 🗄️ Stockage
 
 - [stockage.md](stockage.md) — Volume, PV, PVC, StorageClass
 
-### Scheduling & scaling
+### 📈 Scheduling & scaling
 
 - [scheduling-avance.md](scheduling-avance.md) — requests/limits, affinity, taints/tolerations, HPA/VPA
 
-### Observabilité
+### 💓 Observabilité
 
 - [observabilite-probes.md](observabilite-probes.md) — startup/liveness/readiness, logs
 
-### Organisation
+### 🏷️ Organisation
 
 - [namespaces.md](namespaces.md) — isolation logique, ResourceQuota, LimitRange
 
-### Opérations
+### 🛠️ Opérations
 
 - [operations-troubleshooting.md](operations-troubleshooting.md) — maintenance de nœuds, rollout, diagnostic d'un pod
 
