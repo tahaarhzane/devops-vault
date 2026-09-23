@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" role="img" aria-label="Hiérarchie Deployment vers ReplicaSet vers Pods" style="font-family: Helvetica, Arial, sans-serif;">
+  <title>Deployment gère un ReplicaSet, qui gère les Pods</title>
+
+  <defs>
+    <marker id="dArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563EB"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="640" height="260" fill="#ffffff"/>
+
+  <!-- Deployment -->
+  <rect x="20" y="100" width="140" height="50" rx="8" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="90" y="130" text-anchor="middle" font-size="13" fill="#1E3A8A">Deployment</text>
+
+  <line x1="160" y1="125" x2="248" y2="125" stroke="#2563EB" stroke-width="1.5" marker-end="url(#dArrow)"/>
+  <text x="204" y="112" text-anchor="middle" font-size="9" fill="#1E3A8A">crée &amp; gère</text>
+
+  <!-- ReplicaSet -->
+  <rect x="250" y="100" width="140" height="50" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="320" y="130" text-anchor="middle" font-size="13" fill="#1E3A8A">ReplicaSet</text>
+
+  <!-- fan-out to pods -->
+  <line x1="390" y1="125" x2="478" y2="52" stroke="#2563EB" stroke-width="1.5" marker-end="url(#dArrow)"/>
+  <line x1="390" y1="125" x2="478" y2="125" stroke="#2563EB" stroke-width="1.5" marker-end="url(#dArrow)"/>
+  <line x1="390" y1="125" x2="478" y2="198" stroke="#2563EB" stroke-width="1.5" marker-end="url(#dArrow)"/>
+  <text x="434" y="18" text-anchor="middle" font-size="9" fill="#1E3A8A">crée &amp; gère N réplicas</text>
+
+  <rect x="480" y="30" width="140" height="44" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="550" y="56" text-anchor="middle" font-size="12.5" fill="#1E3A8A">Pod</text>
+
+  <rect x="480" y="103" width="140" height="44" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="550" y="129" text-anchor="middle" font-size="12.5" fill="#1E3A8A">Pod</text>
+
+  <rect x="480" y="176" width="140" height="44" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="550" y="202" text-anchor="middle" font-size="12.5" fill="#1E3A8A">Pod</text>
+</svg>

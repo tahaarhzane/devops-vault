@@ -17,13 +17,7 @@ jour progressives (rolling updates) et les rollbacks.
 
 ### Hiérarchie
 
-```mermaid
-flowchart LR
-    D["Deployment"] -->|crée & gère| RS["ReplicaSet"]
-    RS -->|crée & gère| P1["Pod"]
-    RS --> P2["Pod"]
-    RS --> P3["Pod"]
-```
+![[deployment-hierarchy.svg]]
 
 - **ReplicaSet** : garantit qu'un nombre donné de réplicas d'un pod tourne à tout moment.
   Si un pod meurt, le ReplicaSet en recrée un. On ne le manipule quasiment jamais
