@@ -16,13 +16,7 @@ quelque chose ne va pas.
 
 ### Maintenance de nœuds
 
-```mermaid
-flowchart LR
-    A["Nœud actif\n(schedulable)"] -->|kubectl cordon| B["Nœud cordonné\n(pas de nouveaux pods)"]
-    B -->|kubectl drain| C["Pods évacués\nvers d'autres nœuds"]
-    C -->|maintenance OS/kernel| D["Nœud maintenu"]
-    D -->|kubectl uncordon| A
-```
+![[node-maintenance-cycle.svg]]
 
 - `kubectl cordon <node>` : marque le nœud `Unschedulable` — aucun **nouveau** pod n'y sera
   placé, mais les pods existants continuent de tourner.
