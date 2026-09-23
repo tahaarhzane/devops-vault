@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 300" role="img" aria-label="StatefulSet créant trois pods numérotés, chacun avec son propre PVC" style="font-family: Helvetica, Arial, sans-serif;">
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="300" viewBox="0 0 620 300" role="img" aria-label="StatefulSet créant trois pods numérotés, chacun avec son propre PVC" style="font-family: Helvetica, Arial, sans-serif;">
   <title>StatefulSet : pods numérotés avec stockage dédié</title>
 
   <defs>

@@ -29,7 +29,7 @@ agent de collecte de logs, init de configuration).
 
 ### Cycle de vie
 
-![[pods-lifecycle.svg]]
+![Cycle de vie d'un pod](assets/pods-lifecycle.svg)
 *Un pod passe de Pending à Running dès que ses conteneurs démarrent ; Running peut se
 redémarrer sur lui-même (restartPolicy) avant de terminer en Succeeded ou Failed.*
 

@@ -16,7 +16,7 @@ quelque chose ne va pas.
 
 ### Maintenance de nœuds
 
-![[node-maintenance-cycle.svg]]
+![Cycle cordon, drain, maintenance, uncordon](assets/node-maintenance-cycle.svg)
 
 - `kubectl cordon <node>` : marque le nœud `Unschedulable` — aucun **nouveau** pod n'y sera
   placé, mais les pods existants continuent de tourner.

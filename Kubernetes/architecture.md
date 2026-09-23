@@ -18,12 +18,12 @@ pod ne démarre pas, pourquoi le scheduling échoue, pourquoi l'API ne répond p
 
 ### Vue d'ensemble
 
-![[architecture-overview.svg]]
+![Vue d'ensemble : control plane et worker nodes](assets/architecture-overview.svg)
 *Le control plane (détail dans le schéma suivant) pilote deux worker nodes : kubelet reçoit les instructions, démarre les conteneurs via le runtime, pendant que kube-proxy applique les règles réseau vers les pods.*
 
 ### Composants du control plane
 
-![[architecture-control-plane-detail.svg]]
+![Détail des interactions du control plane](assets/architecture-control-plane-detail.svg)
 *Aucun composant ne parle directement à un autre : le scheduler assigne les pods en attente, le controller-manager réconcilie l'état, le cloud-controller-manager provisionne les ressources cloud — tous via l'apiserver, seul à parler à etcd.*
 
 - **kube-apiserver** : point d'entrée unique de l'API Kubernetes (REST). Toutes les

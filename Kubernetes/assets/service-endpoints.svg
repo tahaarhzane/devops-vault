@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" role="img" aria-label="Un client accède à un Service qui route vers trois pods backend" style="font-family: Helvetica, Arial, sans-serif;">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="260" viewBox="0 0 640 260" role="img" aria-label="Un client accède à un Service qui route vers trois pods backend" style="font-family: Helvetica, Arial, sans-serif;">
   <title>Service ClusterIP routant vers trois pods via selector</title>
 
   <defs>

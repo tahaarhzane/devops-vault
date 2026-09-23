@@ -17,7 +17,7 @@ jour progressives (rolling updates) et les rollbacks.
 
 ### Hiérarchie
 
-![[deployment-hierarchy.svg]]
+![Hiérarchie Deployment, ReplicaSet, Pods](assets/deployment-hierarchy.svg)
 
 - **ReplicaSet** : garantit qu'un nombre donné de réplicas d'un pod tourne à tout moment.
   Si un pod meurt, le ReplicaSet en recrée un. On ne le manipule quasiment jamais

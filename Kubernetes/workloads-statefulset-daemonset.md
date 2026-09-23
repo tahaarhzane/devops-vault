@@ -30,7 +30,7 @@ Utilisé quand les pods ont besoin :
 Cas d'usage typiques : bases de données (PostgreSQL, MongoDB en cluster), Kafka,
 Elasticsearch, Zookeeper.
 
-![[statefulset-pvc.svg]]
+![StatefulSet avec PVC dédié par pod](assets/statefulset-pvc.svg)
 
 ### DaemonSet
 

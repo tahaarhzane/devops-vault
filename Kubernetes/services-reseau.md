@@ -17,7 +17,7 @@ par labels.
 
 ### Fonctionnement
 
-![[service-endpoints.svg]]
+![Service routant vers les pods backend](assets/service-endpoints.svg)
 
 Un Service ne route pas activement le trafic lui-même : **kube-proxy**, sur chaque nœud,
 maintient des règles (iptables ou IPVS) qui redirigent le trafic vers la ClusterIP directement

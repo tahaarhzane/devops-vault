@@ -54,7 +54,7 @@ Contrôle **où** un pod peut/doit être placé, par rapport aux nœuds ou aux a
 Mécanisme inverse de l'affinity : le **nœud** repousse les pods, sauf ceux qui tolèrent
 explicitement la contrainte.
 
-![[taint-toleration.svg]]
+![Taint qui repousse, toleration qui accepte](assets/taint-toleration.svg)
 
 Effets d'un taint :
 - **NoSchedule** : aucun nouveau pod sans toleration n'est schedulé (les pods déjà présents

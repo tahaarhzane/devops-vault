@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 200" role="img" aria-label="Un Pod monte un PVC qui est lié à un PV, provisionné par une StorageClass" style="font-family: Helvetica, Arial, sans-serif;">
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="200" viewBox="0 0 700 200" role="img" aria-label="Un Pod monte un PVC qui est lié à un PV, provisionné par une StorageClass" style="font-family: Helvetica, Arial, sans-serif;">
   <title>Couches de stockage : Pod, PVC, PV, StorageClass</title>
 
   <defs>

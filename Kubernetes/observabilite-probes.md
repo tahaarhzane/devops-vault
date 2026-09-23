@@ -17,7 +17,7 @@ explicitement via des probes. Mal configurées, elles causent plus d'incidents q
 
 ### Les trois probes
 
-![[probes-flow.svg]]
+![Arbre de décision des probes](assets/probes-flow.svg)
 
 - **startupProbe** : vérifie que l'appli a fini de démarrer avant que liveness/readiness ne
   prennent le relais. Essentiel pour les applis à démarrage lent (JVM, gros cache à charger)

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 460" role="img" aria-label="Arbre de décision des probes : startupProbe, livenessProbe, readinessProbe" style="font-family: Helvetica, Arial, sans-serif;">
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="460" viewBox="0 0 820 460" role="img" aria-label="Arbre de décision des probes : startupProbe, livenessProbe, readinessProbe" style="font-family: Helvetica, Arial, sans-serif;">
   <title>Startup, liveness et readiness probes : ce qui se passe à chaque échec</title>
 
   <defs>

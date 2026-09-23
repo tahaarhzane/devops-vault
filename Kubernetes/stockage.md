@@ -17,7 +17,7 @@ stockage** (par la plateforme), via un système en couches.
 
 ### Les couches
 
-![[storage-layers.svg]]
+![Couches de stockage : Pod, PVC, PV, StorageClass](assets/storage-layers.svg)
 
 - **Volume** (simple) : lié au cycle de vie du **pod**. Survit aux redémarrages de
   conteneurs dans le pod, mais disparaît avec le pod. Types courants : `emptyDir`

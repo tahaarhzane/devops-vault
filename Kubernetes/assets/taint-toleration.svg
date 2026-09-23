@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 240" role="img" aria-label="Un nœud avec taint repousse un pod sans toleration mais accepte un pod avec toleration" style="font-family: Helvetica, Arial, sans-serif;">
+<svg xmlns="http://www.w3.org/2000/svg" width="620" height="240" viewBox="0 0 620 240" role="img" aria-label="Un nœud avec taint repousse un pod sans toleration mais accepte un pod avec toleration" style="font-family: Helvetica, Arial, sans-serif;">
   <title>Taint et toleration : un pod sans toleration est repoussé, un pod avec toleration est accepté</title>
 
   <defs>
