@@ -15,7 +15,7 @@ nœud** (agents de monitoring, CNI, log collectors).
 
 ## Notes
 
-### StatefulSet
+### 🗄️ StatefulSet
 
 Utilisé quand les pods ont besoin :
 - d'une **identité réseau stable** : nom de pod prévisible (`app-0`, `app-1`, `app-2`,
@@ -28,24 +28,26 @@ Utilisé quand les pods ont besoin :
   dans l'ordre inverse. Utile pour les clusters à état (ex. un maître doit démarrer avant
   les réplicas dans certains systèmes).
 
-Cas d'usage typiques : bases de données (PostgreSQL, MongoDB en cluster), Kafka,
-Elasticsearch, Zookeeper.
+> [!NOTE]
+> **Cas d'usage typiques** : bases de données (PostgreSQL, MongoDB en cluster), Kafka,
+> Elasticsearch, Zookeeper.
 
 ![StatefulSet avec PVC dédié par pod](assets/statefulset-pvc.svg)
 
-### DaemonSet
+### 🖥️ DaemonSet
 
 Garantit qu'une copie d'un pod tourne sur **chaque nœud** du cluster (ou sur un sous-ensemble
 via `nodeSelector`/affinity). Quand un nœud est ajouté, le pod y est automatiquement créé ;
 quand un nœud est retiré, le pod est nettoyé.
 
-Cas d'usage typiques :
-- agents de logs (Fluentd, Filebeat)
-- agents de monitoring (node-exporter Prometheus)
-- plugins réseau (CNI) et de stockage au niveau nœud
-- agents de sécurité (scanners, EDR)
+> [!NOTE]
+> **Cas d'usage typiques**
+> - agents de logs (Fluentd, Filebeat)
+> - agents de monitoring (node-exporter Prometheus)
+> - plugins réseau (CNI) et de stockage au niveau nœud
+> - agents de sécurité (scanners, EDR)
 
-### Différence clé avec Deployment
+### 🆚 Différence clé avec Deployment
 
 | | Deployment | StatefulSet | DaemonSet |
 |---|---|---|---|

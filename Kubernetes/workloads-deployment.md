@@ -15,7 +15,7 @@ jour progressives (rolling updates) et les rollbacks.
 
 ## Notes
 
-### Hiérarchie
+### ⚙️ Hiérarchie
 
 ![Hiérarchie Deployment, ReplicaSet, Pods](assets/deployment-hierarchy.svg)
 
@@ -26,7 +26,7 @@ jour progressives (rolling updates) et les rollbacks.
   nouvelle config), il crée un **nouveau** ReplicaSet et bascule progressivement les pods
   de l'ancien vers le nouveau.
 
-### Stratégies de déploiement
+### 🔀 Stratégies de déploiement
 
 - **RollingUpdate** (par défaut) : remplace les pods progressivement, contrôlé par
   `maxUnavailable` et `maxSurge`. Zéro downtime si les probes readiness sont bien
@@ -35,32 +35,32 @@ jour progressives (rolling updates) et les rollbacks.
   utile si l'ancienne et la nouvelle version ne peuvent pas cohabiter, ex. migration DB
   incompatible).
 
-**Blue/Green et Canary** ne sont **pas** des `strategy` natives du Deployment — Kubernetes
-ne connaît que RollingUpdate/Recreate. Elles se construisent par-dessus :
-- **Blue/Green** : deux Deployments complets (`blue` et `green`) tournent en parallèle, un
-  Service (ou l'Ingress) pointe sur l'un des deux via son `selector` ; le bascule est un
-  changement de label, instantané et facilement réversible, mais coûte 2x les ressources
-  pendant la transition.
-- **Canary** : un petit Deployment "canary" (ex. 1 réplica sur 20) partage le même `selector`
-  de Service que le Deployment principal — il reçoit une fraction du trafic proportionnelle à
-  son nombre de réplicas (load-balancing round-robin de kube-proxy, pas de pourcentage exact
-  configurable nativement). Un contrôle plus fin (pourcentage exact, routage par header) passe
-  par un Ingress controller avancé ou un service mesh (Istio, Linkerd).
+> [!NOTE]
+> **Blue/Green et Canary** ne sont **pas** des `strategy` natives du Deployment — Kubernetes
+> ne connaît que RollingUpdate/Recreate. Elles se construisent par-dessus :
+> - **Blue/Green** : deux Deployments complets (`blue` et `green`) tournent en parallèle, un
+>   Service (ou l'Ingress) pointe sur l'un des deux via son `selector` ; le bascule est un
+>   changement de label, instantané et facilement réversible, mais coûte 2x les ressources
+>   pendant la transition.
+> - **Canary** : un petit Deployment "canary" (ex. 1 réplica sur 20) partage le même `selector`
+>   de Service que le Deployment principal — il reçoit une fraction du trafic proportionnelle à
+>   son nombre de réplicas (load-balancing round-robin de kube-proxy, pas de pourcentage exact
+>   configurable nativement). Un contrôle plus fin (pourcentage exact, routage par header) passe
+>   par un Ingress controller avancé ou un service mesh (Istio, Linkerd).
 
-### Rollback
+### ⏮️ Rollback
 
 Chaque révision de Deployment est conservée (historique via `kubectl rollout history`).
 `kubectl rollout undo` revient à la révision précédente en recréant l'ancien ReplicaSet
 (ou en le rescalant s'il existe encore).
 
-### Points de vigilance
-
-- `replicas` définit le nombre désiré, mais le vrai contrôle du "combien de pods à la
-  fois" pendant une mise à jour vient de `maxSurge`/`maxUnavailable`.
-- Un Deployment sans `readinessProbe` correcte peut router du trafic vers des pods pas
-  encore prêts pendant un rollout.
-- `revisionHistoryLimit` contrôle combien d'anciens ReplicaSets sont gardés (pour
-  rollback) — par défaut 10.
+> [!WARNING]
+> - `replicas` définit le nombre désiré, mais le vrai contrôle du "combien de pods à la
+>   fois" pendant une mise à jour vient de `maxSurge`/`maxUnavailable`.
+> - Un Deployment sans `readinessProbe` correcte peut router du trafic vers des pods pas
+>   encore prêts pendant un rollout.
+> - `revisionHistoryLimit` contrôle combien d'anciens ReplicaSets sont gardés (pour
+>   rollback) — par défaut 10.
 
 ## Références
 
