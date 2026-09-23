@@ -8,6 +8,34 @@
     <marker id="arrowDBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#1D4ED8"/>
     </marker>
+
+    <g id="icoGear2" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="10" cy="10" r="4.2"/>
+      <line x1="14.2" y1="10" x2="18" y2="10"/>
+      <line x1="12.1" y1="13.65" x2="14" y2="16.93"/>
+      <line x1="7.9" y1="13.65" x2="6" y2="16.93"/>
+      <line x1="5.8" y1="10" x2="2" y2="10"/>
+      <line x1="7.9" y1="6.35" x2="6" y2="3.07"/>
+      <line x1="12.1" y1="6.35" x2="14" y2="3.07"/>
+    </g>
+    <g id="icoTarget" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="10" cy="10" r="7"/>
+      <circle cx="10" cy="10" r="4"/>
+      <circle cx="10" cy="10" r="1.1" fill="currentColor" stroke="none"/>
+    </g>
+    <g id="icoCheck" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="10" cy="10" r="7.5"/>
+      <polyline points="6.5,10.2 9,13 14,7.5"/>
+    </g>
+    <g id="icoCloud" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17.5,19 H9 a7,7 0 1,1 6.71,-9 h1.79 a4.5,4.5 0 1,1 0,9 z"/>
+    </g>
+    <g id="icoCylinder" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="10" cy="5.5" rx="7" ry="2.3"/>
+      <line x1="3" y1="5.5" x2="3" y2="14.5"/>
+      <line x1="17" y1="5.5" x2="17" y2="14.5"/>
+      <path d="M3,14.5 A7,2.3 0 0,0 17,14.5"/>
+    </g>
   </defs>
 
   <rect x="0" y="0" width="860" height="470" fill="#ffffff"/>
@@ -17,12 +45,15 @@
 
   <!-- Actor boxes -->
   <rect x="190" y="40" width="140" height="56" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <use href="#icoTarget" transform="translate(254,45) scale(0.6)" stroke="#1E3A8A" color="#1E3A8A"/>
   <text x="260" y="73" text-anchor="middle" font-size="12" fill="#1E3A8A">kube-scheduler</text>
 
   <rect x="345" y="40" width="210" height="56" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <use href="#icoCheck" transform="translate(444,45) scale(0.6)" stroke="#1E3A8A"/>
   <text x="450" y="73" text-anchor="middle" font-size="12" fill="#1E3A8A">kube-controller-manager</text>
 
   <rect x="570" y="40" width="220" height="56" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <use href="#icoCloud" transform="translate(668,44) scale(0.5)" stroke="#1E3A8A"/>
   <text x="680" y="73" text-anchor="middle" font-size="12" fill="#1E3A8A">cloud-controller-manager</text>
 
   <!-- Vertical arrows into apiserver, each individually labeled -->
@@ -40,6 +71,7 @@
 
   <!-- apiserver hub -->
   <rect x="150" y="276" width="560" height="68" rx="12" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2.5"/>
+  <use href="#icoGear2" transform="translate(330,291) scale(1.1)" stroke="#1E3A8A"/>
   <text x="430" y="304" text-anchor="middle" font-size="15" font-weight="700" fill="#1E3A8A">kube-apiserver</text>
   <text x="430" y="322" text-anchor="middle" font-size="10.5" fill="#3B5FA0">seule porte d'entrée : reçoit toutes les requêtes, expose l'API REST</text>
 
@@ -51,6 +83,7 @@
 
   <!-- etcd -->
   <rect x="350" y="404" width="160" height="56" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <use href="#icoCylinder" transform="translate(376,413) scale(0.8)" stroke="#1E3A8A"/>
   <text x="430" y="429" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">etcd</text>
   <text x="430" y="444" text-anchor="middle" font-size="9.5" fill="#1E3A8A">source de vérité</text>
 </svg>
