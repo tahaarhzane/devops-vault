@@ -15,7 +15,7 @@ par labels.
 
 ## Notes
 
-### Fonctionnement
+### 🌐 Fonctionnement
 
 ![Service routant vers les pods backend](assets/service-endpoints.svg)
 
@@ -28,23 +28,17 @@ L'objet **Endpoints** (ou **EndpointSlice**) liste dynamiquement les IP de pods 
 le `selector` et sont **Ready** (readiness probe OK) — un pod non-ready est automatiquement
 retiré de la rotation.
 
-### Types de Service
+### 🗂️ Types de Service
 
-- **ClusterIP** (défaut) : IP virtuelle interne au cluster uniquement. Usage standard pour
-  la communication inter-services.
-- **NodePort** : ouvre un port fixe (30000-32767) sur **tous** les nœuds, qui redirige vers
-  le Service. Accès externe basique, rarement utilisé en prod directement (préférer
-  LoadBalancer ou Ingress).
-- **LoadBalancer** : provisionne un load balancer externe via le cloud provider (Azure
-  Load Balancer, etc.) qui route vers le Service. Un LB par Service = coûteux à grande
-  échelle → voir Ingress pour mutualiser.
-- **ExternalName** : simple alias CNAME DNS vers un nom externe, pas de proxying — utile
-  pour référencer un service hors cluster (ex. une DB managée) avec un nom interne cohérent.
-- **Headless Service** (`clusterIP: None`) : pas d'IP virtuelle unique, le DNS retourne
-  directement les IPs de tous les pods matchés. Utilisé avec StatefulSet pour adresser
-  chaque pod individuellement.
+| Type | Portée | Usage |
+|---|---|---|
+| **ClusterIP** (défaut) | IP virtuelle interne au cluster uniquement | communication inter-services |
+| **NodePort** | ouvre un port fixe (30000-32767) sur **tous** les nœuds | accès externe basique, rarement utilisé en prod directement (préférer LoadBalancer ou Ingress) |
+| **LoadBalancer** | provisionne un load balancer externe via le cloud provider (Azure Load Balancer, etc.) | un LB par Service = coûteux à grande échelle → voir Ingress pour mutualiser |
+| **ExternalName** | simple alias CNAME DNS vers un nom externe, pas de proxying | référencer un service hors cluster (ex. une DB managée) avec un nom interne cohérent |
+| **Headless** (`clusterIP: None`) | pas d'IP virtuelle unique, le DNS retourne directement les IPs de tous les pods matchés | utilisé avec StatefulSet pour adresser chaque pod individuellement |
 
-### DNS interne (CoreDNS)
+### 🔎 DNS interne (CoreDNS)
 
 Chaque Service obtient un nom DNS résolvable depuis n'importe quel pod du cluster :
 
@@ -54,15 +48,14 @@ Chaque Service obtient un nom DNS résolvable depuis n'importe quel pod du clust
 
 Depuis le même namespace, `<service-name>` seul suffit (résolution via search domains).
 
-### Points de vigilance
-
-- Un Service avec un `selector` qui ne matche aucun pod = 0 endpoint = trafic qui échoue
-  silencieusement (toujours vérifier `kubectl get endpoints`).
-- `targetPort` (port du pod) doit correspondre au port réellement exposé par le conteneur,
-  distinct de `port` (port exposé par le Service).
-- Le load-balancing de kube-proxy est niveau **connexion TCP**, pas requête HTTP : une
-  connexion persistante (keep-alive, gRPC) reste sur le même pod backend tant qu'elle est
-  ouverte — peut créer un déséquilibre de charge.
+> [!WARNING]
+> - Un Service avec un `selector` qui ne matche aucun pod = 0 endpoint = trafic qui échoue
+>   silencieusement (toujours vérifier `kubectl get endpoints`).
+> - `targetPort` (port du pod) doit correspondre au port réellement exposé par le conteneur,
+>   distinct de `port` (port exposé par le Service).
+> - Le load-balancing de kube-proxy est niveau **connexion TCP**, pas requête HTTP : une
+>   connexion persistante (keep-alive, gRPC) reste sur le même pod backend tant qu'elle est
+>   ouverte — peut créer un déséquilibre de charge.
 
 ## Références
 
