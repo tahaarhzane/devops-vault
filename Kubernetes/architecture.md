@@ -18,44 +18,13 @@ pod ne démarre pas, pourquoi le scheduling échoue, pourquoi l'API ne répond p
 
 ### Vue d'ensemble
 
-```mermaid
-flowchart TB
-    subgraph CP["Control Plane"]
-        API["kube-apiserver"]
-        ETCD[("etcd")]
-        SCHED["kube-scheduler"]
-        CM["kube-controller-manager"]
-        CCM["cloud-controller-manager"]
-    end
-
-    subgraph N1["Worker Node"]
-        KUBELET1["kubelet"]
-        PROXY1["kube-proxy"]
-        CRI1["Container runtime"]
-        POD1(("Pods"))
-    end
-
-    subgraph N2["Worker Node"]
-        KUBELET2["kubelet"]
-        PROXY2["kube-proxy"]
-        CRI2["Container runtime"]
-        POD2(("Pods"))
-    end
-
-    USER["kubectl / client"] --> API
-    API <--> ETCD
-    SCHED --> API
-    CM --> API
-    CCM --> API
-    API <--> KUBELET1
-    API <--> KUBELET2
-    KUBELET1 --> CRI1 --> POD1
-    KUBELET2 --> CRI2 --> POD2
-    PROXY1 -.règles réseau.- POD1
-    PROXY2 -.règles réseau.- POD2
-```
+![[architecture-overview.svg]]
+*Le control plane (détail dans le schéma suivant) pilote deux worker nodes : kubelet reçoit les instructions, démarre les conteneurs via le runtime, pendant que kube-proxy applique les règles réseau vers les pods.*
 
 ### Composants du control plane
+
+![[architecture-control-plane-detail.svg]]
+*Aucun composant ne parle directement à un autre : le scheduler assigne les pods en attente, le controller-manager réconcilie l'état, le cloud-controller-manager provisionne les ressources cloud — tous via l'apiserver, seul à parler à etcd.*
 
 - **kube-apiserver** : point d'entrée unique de l'API Kubernetes (REST). Toutes les
   interactions (kubectl, controllers, kubelet) passent par lui. Stateless, scalable
