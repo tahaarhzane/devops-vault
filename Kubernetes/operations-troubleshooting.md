@@ -41,6 +41,8 @@ kubectl rollout undo deployment/<name> --to-revision=N
 kubectl rollout restart deployment/<name>      # forcer un redémarrage des pods (ex. après MAJ d'un Secret)
 ```
 
+Stratégies et détail du rollback : voir [workloads-deployment.md](workloads-deployment.md).
+
 ### Démarche de troubleshooting d'un pod
 
 1. `kubectl get pods -n <ns>` : quel est l'état (Pending, CrashLoopBackOff, ImagePullBackOff...) ?
@@ -54,11 +56,11 @@ kubectl rollout restart deployment/<name>      # forcer un redémarrage des pods
 
 | État | Cause probable |
 |---|---|
-| `Pending` | scheduling impossible : pas assez de ressources, taint non toléré, PVC non bound |
+| `Pending` | scheduling impossible : pas assez de ressources, [taint non toléré](scheduling-avance.md), [PVC non bound](stockage.md) |
 | `ImagePullBackOff` / `ErrImagePull` | image inexistante, tag erroné, credentials registry manquants |
 | `CrashLoopBackOff` | le conteneur démarre puis crash en boucle — voir logs `--previous` |
 | `OOMKilled` (dans les events) | mémoire insuffisante, `limits.memory` dépassée |
-| `0/1 Running` sans erreur visible | `readinessProbe` qui échoue en continu |
+| `0/1 Running` sans erreur visible | [`readinessProbe`](observabilite-probes.md) qui échoue en continu |
 
 ### Commandes de diagnostic cluster
 

@@ -27,8 +27,9 @@ explicitement via des probes. Mal configurées, elles causent plus d'incidents q
   pas pour des dépendances externes temporairement indisponibles (sinon boucle de redémarrage
   inutile — le problème n'est pas dans le conteneur).
 - **readinessProbe** : "l'appli peut-elle recevoir du trafic maintenant ?" Un échec retire le
-  pod des `Endpoints` du Service (pas de redémarrage). À utiliser pour les dépendances
-  externes (DB, cache) et la charge temporaire.
+  pod des `Endpoints` du Service (pas de redémarrage — voir [services-reseau.md](services-reseau.md)
+  pour le fonctionnement des Endpoints). À utiliser pour les dépendances externes (DB, cache)
+  et la charge temporaire.
 
 ### Types de vérification
 

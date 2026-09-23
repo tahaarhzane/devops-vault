@@ -35,7 +35,8 @@ ou des applications.
 ### ResourceQuota et LimitRange
 
 - **ResourceQuota** : plafonne la consommation totale d'un namespace (CPU/mémoire totale,
-  nombre max de pods, PVC, Services...). Empêche une équipe de monopoliser le cluster.
+  nombre max de pods, [PVC](stockage.md), [Services](services-reseau.md)...). Empêche une
+  équipe de monopoliser le cluster.
 - **LimitRange** : définit des valeurs par défaut ou des bornes min/max de
   requests/limits **par pod/conteneur** dans le namespace — évite les pods sans limites
   définies.

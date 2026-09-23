@@ -22,7 +22,8 @@ Utilisé quand les pods ont besoin :
   toujours pareil même après recréation), utilisable comme hostname DNS stable via un
   Headless Service.
 - d'un **stockage persistant dédié** : chaque pod obtient son propre PVC (via
-  `volumeClaimTemplates`), qui lui reste attaché même s'il est recréé sur un autre nœud.
+  `volumeClaimTemplates`), qui lui reste attaché même s'il est recréé sur un autre nœud —
+  voir [stockage.md](stockage.md) pour le fonctionnement détaillé du PVC.
 - d'un **ordre de démarrage/arrêt garanti** : création séquentielle `0, 1, 2...`, suppression
   dans l'ordre inverse. Utile pour les clusters à état (ex. un maître doit démarrer avant
   les réplicas dans certains systèmes).

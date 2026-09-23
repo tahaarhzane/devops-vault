@@ -67,9 +67,10 @@ maintenance, nœuds dédiés à une équipe/tenant.
 
 ### Autoscaling
 
-- **HPA (Horizontal Pod Autoscaler)** : ajuste le nombre de réplicas d'un Deployment/
-  StatefulSet selon des métriques (CPU/mémoire par défaut, ou métriques custom via
-  Prometheus Adapter). Scale horizontal = plus de pods.
+- **HPA (Horizontal Pod Autoscaler)** : ajuste le nombre de réplicas d'un
+  [Deployment](workloads-deployment.md)/[StatefulSet](workloads-statefulset-daemonset.md)
+  selon des métriques (CPU/mémoire par défaut, ou métriques custom via Prometheus Adapter).
+  Scale horizontal = plus de pods.
 - **VPA (Vertical Pod Autoscaler)** : ajuste automatiquement les requests/limits des pods
   selon leur consommation observée. Scale vertical = pods plus gros. Nécessite un
   redémarrage du pod pour appliquer (sauf mode "in-place" encore limité).

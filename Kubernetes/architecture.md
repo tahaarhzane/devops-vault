@@ -43,7 +43,7 @@ pod ne démarre pas, pourquoi le scheduling échoue, pourquoi l'API ne répond p
 - **kubelet** : agent sur chaque nœud, communique avec l'apiserver, s'assure que les
   conteneurs décrits dans les PodSpecs tournent et sont en bonne santé (probes).
 - **kube-proxy** : maintient les règles réseau sur le nœud (iptables/IPVS) pour permettre
-  la communication vers les Services.
+  la communication vers les Services — voir [services-reseau.md](services-reseau.md).
 - **Container runtime** : exécute réellement les conteneurs (containerd, CRI-O), via
   l'interface CRI (Container Runtime Interface).
 
