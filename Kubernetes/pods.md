@@ -16,7 +16,7 @@ indispensable pour tout le reste.
 
 ## Notes
 
-### Définition
+### 📦 Définition
 
 Un Pod encapsule un ou plusieurs conteneurs qui :
 - partagent le même **network namespace** (même IP, même espace de ports — communication
@@ -27,22 +27,22 @@ Un Pod encapsule un ou plusieurs conteneurs qui :
 Multi-conteneurs dans un pod = pattern **sidecar** (ex. proxy Envoy à côté de l'app,
 agent de collecte de logs, init de configuration).
 
-### Cycle de vie
+### 🔄 Cycle de vie
 
 ![Cycle de vie d'un pod](assets/pods-lifecycle.svg)
 *Un pod passe de Pending à Running dès que ses conteneurs démarrent ; Running peut se
 redémarrer sur lui-même (restartPolicy) avant de terminer en Succeeded ou Failed.*
 
-Phases (`status.phase`) :
-- **Pending** : accepté par le cluster mais un ou plusieurs conteneurs pas encore créés
-  (image en cours de pull, scheduling en attente...)
-- **Running** : le pod est lié à un nœud, tous les conteneurs sont créés, au moins un tourne
-- **Succeeded** / **Failed** : tous les conteneurs se sont terminés (utile pour les Jobs)
-- **Unknown** : l'état n'a pas pu être déterminé (souvent perte de communication avec le nœud)
+| Phase (`status.phase`) | Signification |
+|---|---|
+| **Pending** | accepté par le cluster mais un ou plusieurs conteneurs pas encore créés (image en cours de pull, scheduling en attente...) |
+| **Running** | le pod est lié à un nœud, tous les conteneurs sont créés, au moins un tourne |
+| **Succeeded** / **Failed** | tous les conteneurs se sont terminés (utile pour les Jobs) |
+| **Unknown** | l'état n'a pas pu être déterminé (souvent perte de communication avec le nœud) |
 
 `restartPolicy` (Always / OnFailure / Never) détermine si kubelet redémarre les conteneurs.
 
-### Init containers
+### 🚀 Init containers
 
 Conteneurs exécutés **avant** les conteneurs applicatifs, dans l'ordre, jusqu'à leur
 terminaison complète. Cas d'usage typiques :
@@ -54,14 +54,15 @@ Si un init container échoue, kubelet le redémarre selon `restartPolicy` du pod
 conteneurs applicatifs ne démarrent jamais tant que tous les init containers n'ont pas
 réussi.
 
-### Ressources et bonnes pratiques
+### ✅ Ressources et bonnes pratiques
 
-- Toujours définir `resources.requests` et `resources.limits` (CPU/mémoire) : sans ça,
-  le scheduler ne peut pas raisonner correctement et le nœud peut être surchargé.
-- Un pod sans owner (créé directement, pas via Deployment) n'est **pas** recréé s'il est
-  supprimé ou si le nœud tombe → toujours passer par un controller en pratique.
-- Les labels sur les pods sont ce qui permet aux Services et aux controllers de les
-  sélectionner (`selector`).
+> [!TIP]
+> - Toujours définir `resources.requests` et `resources.limits` (CPU/mémoire) : sans ça,
+>   le scheduler ne peut pas raisonner correctement et le nœud peut être surchargé.
+> - Un pod sans owner (créé directement, pas via Deployment) n'est **pas** recréé s'il est
+>   supprimé ou si le nœud tombe → toujours passer par un controller en pratique.
+> - Les labels sur les pods sont ce qui permet aux Services et aux controllers de les
+>   sélectionner (`selector`).
 
 ## Références
 
