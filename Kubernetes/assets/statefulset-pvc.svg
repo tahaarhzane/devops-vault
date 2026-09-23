@@ -5,6 +5,21 @@
     <marker id="sArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0,0 L10,5 L0,10 z" fill="#2563EB"/>
     </marker>
+    <g id="icoGearS" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="10" cy="10" r="4.2"/>
+      <line x1="14.2" y1="10" x2="18" y2="10"/>
+      <line x1="12.1" y1="13.65" x2="14" y2="16.93"/>
+      <line x1="7.9" y1="13.65" x2="6" y2="16.93"/>
+      <line x1="5.8" y1="10" x2="2" y2="10"/>
+      <line x1="7.9" y1="6.35" x2="6" y2="3.07"/>
+      <line x1="12.1" y1="6.35" x2="14" y2="3.07"/>
+    </g>
+    <g id="icoCubeS" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="10,2 16.93,6 16.93,14 10,18 3.07,14 3.07,6"/>
+      <line x1="10" y1="10" x2="10" y2="2"/>
+      <line x1="10" y1="10" x2="16.93" y2="14"/>
+      <line x1="10" y1="10" x2="3.07" y2="14"/>
+    </g>
   </defs>
 
   <rect x="0" y="0" width="620" height="300" fill="#ffffff"/>
@@ -13,6 +28,7 @@
 
   <!-- StatefulSet -->
   <rect x="220" y="24" width="180" height="50" rx="8" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/>
+  <use href="#icoGearS" transform="translate(232,37) scale(0.8)" stroke="#1E3A8A"/>
   <text x="310" y="54" text-anchor="middle" font-size="12.5" fill="#1E3A8A">StatefulSet: app</text>
 
   <!-- fan to pods -->
@@ -22,12 +38,15 @@
 
   <!-- Pods -->
   <rect x="30" y="120" width="140" height="50" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <use href="#icoCubeS" transform="translate(44,133) scale(0.8)" stroke="#1E3A8A"/>
   <text x="100" y="150" text-anchor="middle" font-size="12.5" fill="#1E3A8A">app-0</text>
 
   <rect x="240" y="120" width="140" height="50" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <use href="#icoCubeS" transform="translate(254,133) scale(0.8)" stroke="#1E3A8A"/>
   <text x="310" y="150" text-anchor="middle" font-size="12.5" fill="#1E3A8A">app-1</text>
 
   <rect x="450" y="120" width="140" height="50" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <use href="#icoCubeS" transform="translate(464,133) scale(0.8)" stroke="#1E3A8A"/>
   <text x="520" y="150" text-anchor="middle" font-size="12.5" fill="#1E3A8A">app-2</text>
 
   <!-- connectors to PVC -->
