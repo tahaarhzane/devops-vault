@@ -29,16 +29,9 @@ agent de collecte de logs, init de configuration).
 
 ### Cycle de vie
 
-```mermaid
-stateDiagram-v2
-    [*] --> Pending
-    Pending --> Running: conteneurs démarrés
-    Running --> Succeeded: tous les conteneurs terminés (exit 0)
-    Running --> Failed: au moins un conteneur en erreur
-    Running --> Running: redémarrage (restartPolicy)
-    Failed --> [*]
-    Succeeded --> [*]
-```
+![[pods-lifecycle.svg]]
+*Un pod passe de Pending à Running dès que ses conteneurs démarrent ; Running peut se
+redémarrer sur lui-même (restartPolicy) avant de terminer en Succeeded ou Failed.*
 
 Phases (`status.phase`) :
 - **Pending** : accepté par le cluster mais un ou plusieurs conteneurs pas encore créés
