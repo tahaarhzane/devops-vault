@@ -17,17 +17,7 @@ explicitement via des probes. Mal configurées, elles causent plus d'incidents q
 
 ### Les trois probes
 
-```mermaid
-flowchart TB
-    START(["Démarrage du conteneur"]) --> SP{"startupProbe"}
-    SP -->|échec répété| KILL1["Conteneur tué\n(restartPolicy)"]
-    SP -->|succès| RUN["En fonctionnement"]
-    RUN --> LP{"livenessProbe\n(en continu)"}
-    RUN --> RP{"readinessProbe\n(en continu)"}
-    LP -->|échec| KILL2["Conteneur redémarré"]
-    RP -->|échec| REMOVE["Retiré des Endpoints\ndu Service"]
-    RP -->|succès| SERVE["Reçoit du trafic"]
-```
+![[probes-flow.svg]]
 
 - **startupProbe** : vérifie que l'appli a fini de démarrer avant que liveness/readiness ne
   prennent le relais. Essentiel pour les applis à démarrage lent (JVM, gros cache à charger)
