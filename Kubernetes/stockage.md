@@ -17,12 +17,7 @@ stockage** (par la plateforme), via un système en couches.
 
 ### Les couches
 
-```mermaid
-flowchart LR
-    SC["StorageClass\n(profil de stockage)"] -->|provisionne| PV["PersistentVolume\n(disque réel)"]
-    PVC["PersistentVolumeClaim\n(demande d'un pod)"] -->|bind| PV
-    POD["Pod"] -->|monte| PVC
-```
+![[storage-layers.svg]]
 
 - **Volume** (simple) : lié au cycle de vie du **pod**. Survit aux redémarrages de
   conteneurs dans le pod, mais disparaît avec le pod. Types courants : `emptyDir`
