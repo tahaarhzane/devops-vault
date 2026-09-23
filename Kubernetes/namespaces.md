@@ -18,7 +18,9 @@ ou des applications.
 ### Ce que le namespace isole
 
 - **Noms d'objets** : deux objets peuvent avoir le même nom dans deux namespaces différents
-  (le nom complet est en réalité `<nom>.<namespace>`)
+  — l'unicité est garantie par le couple (`nom`, `namespace`), pas par le nom seul. C'est
+  ce même principe qui donne le nom DNS d'un Service : `<nom>.<namespace>.svc.cluster.local`
+  (voir [services-reseau.md](services-reseau.md)).
 - **Quotas de ressources** (via `ResourceQuota`)
 - **RBAC** : les `RoleBinding` (par opposition à `ClusterRoleBinding`) s'appliquent à un
   namespace précis

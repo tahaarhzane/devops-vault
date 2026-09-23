@@ -30,6 +30,11 @@ Modes d'usage :
 - **une tâche unique** (`completions` non défini) : un seul pod doit réussir
 - **tâches parallèles à complétion fixe** : ex. traiter 10 fichiers, `completions: 10`
 - **file de travail** (work queue) : les pods coordonnent eux-mêmes qui prend quelle tâche
+  (via une queue externe, Redis/RabbitMQ par ex.)
+- **Indexed Job** (`completionMode: Indexed`) : chaque pod reçoit un index fixe
+  (`0, 1, 2...N-1`) via l'annotation `batch.kubernetes.io/job-completion-index`, utilisable
+  pour assigner déterministiquement un morceau de travail (ex. pod d'index 3 traite le
+  fichier n°3) — évite la coordination externe d'une work queue pour ce cas d'usage.
 
 ### CronJob
 

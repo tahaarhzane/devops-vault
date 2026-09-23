@@ -35,6 +35,18 @@ jour progressives (rolling updates) et les rollbacks.
   utile si l'ancienne et la nouvelle version ne peuvent pas cohabiter, ex. migration DB
   incompatible).
 
+**Blue/Green et Canary** ne sont **pas** des `strategy` natives du Deployment — Kubernetes
+ne connaît que RollingUpdate/Recreate. Elles se construisent par-dessus :
+- **Blue/Green** : deux Deployments complets (`blue` et `green`) tournent en parallèle, un
+  Service (ou l'Ingress) pointe sur l'un des deux via son `selector` ; le bascule est un
+  changement de label, instantané et facilement réversible, mais coûte 2x les ressources
+  pendant la transition.
+- **Canary** : un petit Deployment "canary" (ex. 1 réplica sur 20) partage le même `selector`
+  de Service que le Deployment principal — il reçoit une fraction du trafic proportionnelle à
+  son nombre de réplicas (load-balancing round-robin de kube-proxy, pas de pourcentage exact
+  configurable nativement). Un contrôle plus fin (pourcentage exact, routage par header) passe
+  par un Ingress controller avancé ou un service mesh (Istio, Linkerd).
+
 ### Rollback
 
 Chaque révision de Deployment est conservée (historique via `kubectl rollout history`).

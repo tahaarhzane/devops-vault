@@ -20,8 +20,9 @@ par labels.
 ![Service routant vers les pods backend](assets/service-endpoints.svg)
 
 Un Service ne route pas activement le trafic lui-même : **kube-proxy**, sur chaque nœud,
-maintient des règles (iptables ou IPVS) qui redirigent le trafic vers la ClusterIP directement
-vers l'IP d'un des pods backend (load-balancing L4, round-robin par défaut).
+maintient des règles (iptables ou IPVS) qui interceptent le trafic destiné à la ClusterIP et
+le redirigent directement vers l'IP d'un des pods backend (load-balancing L4, round-robin par
+défaut).
 
 L'objet **Endpoints** (ou **EndpointSlice**) liste dynamiquement les IP de pods qui matchent
 le `selector` et sont **Ready** (readiness probe OK) — un pod non-ready est automatiquement
