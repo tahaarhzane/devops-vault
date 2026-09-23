@@ -14,50 +14,54 @@ aux workloads de service continu (Deployment, StatefulSet, DaemonSet).
 
 ## Notes
 
-### Job
+### 📦 Job
 
 Crée un ou plusieurs pods et s'assure qu'un nombre défini d'entre eux se termine avec
 succès (exit code 0). Contrairement à un Deployment, un pod terminé n'est **pas** relancé
 en boucle — le Job est considéré complet.
 
-Paramètres clés :
-- `completions` : nombre total d'exécutions réussies attendues
-- `parallelism` : nombre de pods exécutés en parallèle
-- `backoffLimit` : nombre de tentatives avant de marquer le Job en échec
-- `activeDeadlineSeconds` : timeout global du Job
+**🔧 Paramètres clés**
 
-Modes d'usage :
-- **une tâche unique** (`completions` non défini) : un seul pod doit réussir
-- **tâches parallèles à complétion fixe** : ex. traiter 10 fichiers, `completions: 10`
-- **file de travail** (work queue) : les pods coordonnent eux-mêmes qui prend quelle tâche
-  (via une queue externe, Redis/RabbitMQ par ex.)
-- **Indexed Job** (`completionMode: Indexed`) : chaque pod reçoit un index fixe
-  (`0, 1, 2...N-1`) via l'annotation `batch.kubernetes.io/job-completion-index`, utilisable
-  pour assigner déterministiquement un morceau de travail (ex. pod d'index 3 traite le
-  fichier n°3) — évite la coordination externe d'une work queue pour ce cas d'usage.
+| Paramètre | Rôle |
+|---|---|
+| `completions` | nombre total d'exécutions réussies attendues |
+| `parallelism` | nombre de pods exécutés en parallèle |
+| `backoffLimit` | nombre de tentatives avant de marquer le Job en échec |
+| `activeDeadlineSeconds` | timeout global du Job |
 
-### CronJob
+> [!NOTE]
+> **Modes d'usage**
+> - **une tâche unique** (`completions` non défini) : un seul pod doit réussir
+> - **tâches parallèles à complétion fixe** : ex. traiter 10 fichiers, `completions: 10`
+> - **file de travail** (work queue) : les pods coordonnent eux-mêmes qui prend quelle tâche
+>   (via une queue externe, Redis/RabbitMQ par ex.)
+> - **Indexed Job** (`completionMode: Indexed`) : chaque pod reçoit un index fixe
+>   (`0, 1, 2...N-1`) via l'annotation `batch.kubernetes.io/job-completion-index`, utilisable
+>   pour assigner déterministiquement un morceau de travail (ex. pod d'index 3 traite le
+>   fichier n°3) — évite la coordination externe d'une work queue pour ce cas d'usage.
+
+### ⏰ CronJob
 
 Crée des Jobs selon un planning au format cron (`schedule: "*/5 * * * *"`). Utile pour :
 - sauvegardes planifiées
 - nettoyage périodique (purge de données, rotation de logs)
 - rapports générés à intervalle régulier
 
-Paramètres clés :
-- `concurrencyPolicy` : `Allow` (défaut), `Forbid` (skip si le job précédent tourne encore),
-  `Replace` (tue le job en cours et lance le nouveau)
-- `successfulJobsHistoryLimit` / `failedJobsHistoryLimit` : combien d'anciens Jobs garder
-- `startingDeadlineSeconds` : marge de tolérance si le scheduler a raté l'heure planifiée
-  (ex. cluster indisponible)
+**🔧 Paramètres clés**
 
-### Points de vigilance
+| Paramètre | Rôle |
+|---|---|
+| `concurrencyPolicy` | `Allow` (défaut) / `Forbid` (skip si le job précédent tourne encore) / `Replace` (tue le job en cours et lance le nouveau) |
+| `successfulJobsHistoryLimit` / `failedJobsHistoryLimit` | combien d'anciens Jobs garder |
+| `startingDeadlineSeconds` | marge de tolérance si le scheduler a raté l'heure planifiée (ex. cluster indisponible) |
 
-- Un CronJob qui rate son créneau (cluster down) ne rattrape pas les exécutions manquées
-  au-delà de `startingDeadlineSeconds`.
-- Toujours borner `backoffLimit` et `activeDeadlineSeconds` pour éviter un Job qui boucle
-  indéfiniment et consomme des ressources.
-- Les pods de Jobs terminés restent visibles (`kubectl get pods`) jusqu'à nettoyage —
-  penser au TTL controller (`ttlSecondsAfterFinished`) pour l'auto-nettoyage.
+> [!WARNING]
+> - Un CronJob qui rate son créneau (cluster down) ne rattrape pas les exécutions manquées
+>   au-delà de `startingDeadlineSeconds`.
+> - Toujours borner `backoffLimit` et `activeDeadlineSeconds` pour éviter un Job qui boucle
+>   indéfiniment et consomme des ressources.
+> - Les pods de Jobs terminés restent visibles (`kubectl get pods`) jusqu'à nettoyage —
+>   penser au TTL controller (`ttlSecondsAfterFinished`) pour l'auto-nettoyage.
 
 ## Références
 
