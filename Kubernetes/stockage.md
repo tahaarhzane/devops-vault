@@ -15,7 +15,7 @@ stockage** (par la plateforme), via un système en couches.
 
 ## Notes
 
-### Les couches
+### 🗄️ Les couches
 
 ![Couches de stockage : Pod, PVC, PV, StorageClass](assets/storage-layers.svg)
 
@@ -33,17 +33,16 @@ stockage** (par la plateforme), via un système en couches.
   de rétention) que les PVC peuvent référencer pour du provisioning **dynamique** — plus
   besoin de créer les PV à la main.
 
-### Modes d'accès (PV/PVC)
+### 🔑 Modes d'accès (PV/PVC)
 
-- **ReadWriteOnce (RWO)** : monté en lecture/écriture par un seul nœud à la fois (le cas le
-  plus courant, ex. Azure Disk).
-- **ReadOnlyMany (ROX)** : monté en lecture seule par plusieurs nœuds.
-- **ReadWriteMany (RWX)** : monté en lecture/écriture par plusieurs nœuds simultanément
-  (nécessite un backend qui le supporte, ex. Azure Files/NFS — pas Azure Disk).
-- **ReadWriteOncePod (RWOP)** : RWO mais restreint à un seul **pod** (pas juste un nœud) —
-  plus strict, évite les conflits multi-pods sur le même nœud.
+| Mode | Portée |
+|---|---|
+| **ReadWriteOnce (RWO)** | lecture/écriture par un seul nœud à la fois (le cas le plus courant, ex. Azure Disk) |
+| **ReadOnlyMany (ROX)** | lecture seule par plusieurs nœuds |
+| **ReadWriteMany (RWX)** | lecture/écriture par plusieurs nœuds simultanément (nécessite un backend qui le supporte, ex. Azure Files/NFS — pas Azure Disk) |
+| **ReadWriteOncePod (RWOP)** | RWO mais restreint à un seul **pod** (pas juste un nœud) — plus strict, évite les conflits multi-pods sur le même nœud |
 
-### Politique de récupération (`reclaimPolicy`)
+### ♻️ Politique de récupération (`reclaimPolicy`)
 
 Que devient le PV quand son PVC est supprimé :
 - **Delete** (défaut avec provisioning dynamique) : le disque sous-jacent est détruit
@@ -51,15 +50,14 @@ Que devient le PV quand son PVC est supprimé :
   directement) — permet une récupération manuelle des données
 - **Recycle** : déprécié
 
-### Points de vigilance
-
-- Un PVC en attente (`Pending`) souvent dû à : aucune StorageClass ne matche, mode d'accès
-  non supporté par le backend, ou zone Azure incompatible avec le nœud (Azure Disk est
-  zone-bound).
-- Redimensionner un PVC (`allowVolumeExpansion: true` sur la StorageClass) est possible pour
-  la plupart des provisioners cloud, mais souvent pas en réduction.
-- StatefulSet + `volumeClaimTemplates` = un PVC dédié par pod, créé automatiquement, jamais
-  supprimé automatiquement (protection contre perte de données accidentelle).
+> [!WARNING]
+> - Un PVC en attente (`Pending`) souvent dû à : aucune StorageClass ne matche, mode d'accès
+>   non supporté par le backend, ou zone Azure incompatible avec le nœud (Azure Disk est
+>   zone-bound).
+> - Redimensionner un PVC (`allowVolumeExpansion: true` sur la StorageClass) est possible pour
+>   la plupart des provisioners cloud, mais souvent pas en réduction.
+> - StatefulSet + `volumeClaimTemplates` = un PVC dédié par pod, créé automatiquement, jamais
+>   supprimé automatiquement (protection contre perte de données accidentelle).
 
 ## Références
 

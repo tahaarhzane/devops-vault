@@ -15,7 +15,7 @@ la charge.
 
 ## Notes
 
-### Resources : requests & limits
+### 📊 Resources : requests & limits
 
 ```yaml
 resources:
@@ -34,11 +34,14 @@ resources:
   - Mémoire : **OOMKilled** si dépassement (le conteneur est tué et redémarré)
 
 **Classes QoS** (déterminent l'ordre d'éviction en cas de pression sur le nœud) :
-- **Guaranteed** : requests == limits sur CPU et mémoire → jamais évincé en premier
-- **Burstable** : requests < limits → évincé après les BestEffort
-- **BestEffort** : aucune requests/limits définie → évincé en premier
 
-### Affinity / Anti-affinity
+| Classe | Condition | Ordre d'éviction |
+|---|---|---|
+| **Guaranteed** | requests == limits sur CPU et mémoire | jamais évincé en premier |
+| **Burstable** | requests < limits | évincé après les BestEffort |
+| **BestEffort** | aucune requests/limits définie | évincé en premier |
+
+### 🎯 Affinity / Anti-affinity
 
 Contrôle **où** un pod peut/doit être placé, par rapport aux nœuds ou aux autres pods.
 
@@ -49,7 +52,7 @@ Contrôle **où** un pod peut/doit être placé, par rapport aux nœuds ou aux a
 - **podAntiAffinity** : évite de placer un pod **avec** certains autres (ex. répartir les
   réplicas d'un Deployment sur des nœuds différents pour la haute disponibilité).
 
-### Taints & Tolerations
+### 🚫 Taints & Tolerations
 
 Mécanisme inverse de l'affinity : le **nœud** repousse les pods, sauf ceux qui tolèrent
 explicitement la contrainte.
@@ -62,10 +65,11 @@ Effets d'un taint :
 - **PreferNoSchedule** : soft, évité si possible
 - **NoExecute** : les pods déjà présents sans toleration sont **évincés**
 
-Cas d'usage typiques : nœuds GPU dédiés, nœuds control-plane (taint par défaut), nœuds en
-maintenance, nœuds dédiés à une équipe/tenant.
+> [!NOTE]
+> **Cas d'usage typiques** : nœuds GPU dédiés, nœuds control-plane (taint par défaut), nœuds
+> en maintenance, nœuds dédiés à une équipe/tenant.
 
-### Autoscaling
+### 📈 Autoscaling
 
 - **HPA (Horizontal Pod Autoscaler)** : ajuste le nombre de réplicas d'un
   [Deployment](workloads-deployment.md)/[StatefulSet](workloads-statefulset-daemonset.md)
@@ -77,14 +81,13 @@ maintenance, nœuds dédiés à une équipe/tenant.
 - **Cluster Autoscaler** : ajuste le **nombre de nœuds** du cluster selon les pods en
   attente faute de capacité (complémentaire au HPA, agit au niveau infra).
 
-### Points de vigilance
-
-- Sans `requests`/`limits`, le HPA basé sur %CPU ne peut pas fonctionner (il calcule un
-  pourcentage de la request).
-- `podAntiAffinity` avec `requiredDuringScheduling` trop strict peut bloquer le scheduling
-  si pas assez de nœuds disponibles → préférer `preferred` sauf besoin strict de HA.
-- Un taint `NoExecute` sans `tolerationSeconds` évince immédiatement — utile pour drainer
-  un nœud, dangereux si mal utilisé en prod.
+> [!WARNING]
+> - Sans `requests`/`limits`, le HPA basé sur %CPU ne peut pas fonctionner (il calcule un
+>   pourcentage de la request).
+> - `podAntiAffinity` avec `requiredDuringScheduling` trop strict peut bloquer le scheduling
+>   si pas assez de nœuds disponibles → préférer `preferred` sauf besoin strict de HA.
+> - Un taint `NoExecute` sans `tolerationSeconds` évince immédiatement — utile pour drainer
+>   un nœud, dangereux si mal utilisé en prod.
 
 ## Références
 
