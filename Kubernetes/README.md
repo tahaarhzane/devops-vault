@@ -45,6 +45,11 @@ Notes techniques sur Kubernetes : concepts, manifests, opérations, dépannage.
 - [helm.md](helm.md) — Chart, Release, templating, bonnes pratiques
 - [deploiement-iac.md](deploiement-iac.md) — comparatif manifeste YAML / Kustomize / Helm / Terraform
 
+### 🔐 Sécurité & extensibilité
+
+- [securite-pod.md](securite-pod.md) — SecurityContext, Pod Security Admission, ServiceAccount
+- [crd-operators.md](crd-operators.md) — étendre l'API Kubernetes avec des types custom
+
 ## Ordre de lecture conseillé
 
 Pour découvrir Kubernetes de zéro : **architecture → pods → workloads-deployment →

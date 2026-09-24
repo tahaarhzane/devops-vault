@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="260" viewBox="0 0 860 260" role="img" aria-label="Une CRD définit un nouveau kind, une ressource custom est créée, un Operator la réconcilie en continu vers des ressources K8s natives" style="font-family: Helvetica, Arial, sans-serif;">
+  <title>CRD → Custom Resource → Operator (réconciliation continue) → ressources natives</title>
+
+  <defs>
+    <marker id="coArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2563EB"/>
+    </marker>
+    <g id="icoFileCO" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5,2 H12 L16,6 V18 H5 Z"/>
+      <path d="M12,2 V6 H16"/>
+      <line x1="7.5" y1="10" x2="13.5" y2="10"/>
+      <line x1="7.5" y1="13" x2="13.5" y2="13"/>
+      <line x1="7.5" y1="16" x2="11" y2="16"/>
+    </g>
+    <g id="icoGearCO" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="10" cy="10" r="4.2"/>
+      <line x1="14.2" y1="10" x2="18" y2="10"/>
+      <line x1="12.1" y1="13.65" x2="14" y2="16.93"/>
+      <line x1="7.9" y1="13.65" x2="6" y2="16.93"/>
+      <line x1="5.8" y1="10" x2="2" y2="10"/>
+      <line x1="7.9" y1="6.35" x2="6" y2="3.07"/>
+      <line x1="12.1" y1="6.35" x2="14" y2="3.07"/>
+    </g>
+    <g id="icoCubeCO" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="10,2 16.93,6 16.93,14 10,18 3.07,14 3.07,6"/>
+      <line x1="10" y1="10" x2="10" y2="2"/>
+      <line x1="10" y1="10" x2="16.93" y2="14"/>
+      <line x1="10" y1="10" x2="3.07" y2="14"/>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="860" height="260" fill="#ffffff"/>
+
+  <!-- self-loop on Operator -->
+  <path d="M470,140 C470,85 550,85 550,140" fill="none" stroke="#1E3A8A" stroke-width="1.5" marker-end="url(#coArrow)"/>
+  <text x="510" y="82" text-anchor="middle" font-size="9" fill="#1E3A8A">réconciliation continue</text>
+
+  <!-- Box 1: CRD -->
+  <rect x="20" y="140" width="140" height="80" rx="8" fill="#EFF6FF" stroke="#2563EB" stroke-width="1.5"/>
+  <use href="#icoFileCO" transform="translate(32,152) scale(0.8)" stroke="#1E3A8A"/>
+  <text x="90" y="176" text-anchor="middle" font-size="13" font-weight="700" fill="#1E3A8A">CRD</text>
+  <text x="90" y="194" text-anchor="middle" font-size="9" fill="#1E3A8A">définit le schéma</text>
+  <text x="90" y="207" text-anchor="middle" font-size="9" fill="#1E3A8A">d'un nouveau kind</text>
+
+  <!-- Box 2: Custom Resource -->
+  <rect x="230" y="140" width="140" height="80" rx="8" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <use href="#icoFileCO" transform="translate(242,152) scale(0.8)" stroke="#1E3A8A"/>
+  <text x="300" y="176" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1E3A8A">Ressource (CR)</text>
+  <text x="300" y="194" text-anchor="middle" font-size="9" fill="#1E3A8A">instance créée</text>
+  <text x="300" y="207" text-anchor="middle" font-size="9" fill="#1E3A8A">par l'utilisateur</text>
+
+  <!-- Box 3: Operator -->
+  <rect x="440" y="140" width="140" height="80" rx="8" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+  <use href="#icoGearCO" transform="translate(452,152) scale(0.8)" stroke="#1E3A8A"/>
+  <text x="510" y="176" text-anchor="middle" font-size="13" font-weight="700" fill="#1E3A8A">Operator</text>
+  <text x="510" y="194" text-anchor="middle" font-size="9" fill="#1E3A8A">watch les CR,</text>
+  <text x="510" y="207" text-anchor="middle" font-size="9" fill="#1E3A8A">réconcilie l'état</text>
+
+  <!-- Box 4: Ressources natives -->
+  <rect x="650" y="140" width="140" height="80" rx="8" fill="#ECFDF5" stroke="#059669" stroke-width="1.5"/>
+  <use href="#icoCubeCO" transform="translate(662,152) scale(0.8)" stroke="#065F46"/>
+  <text x="720" y="176" text-anchor="middle" font-size="12.5" font-weight="700" fill="#065F46">K8s natifs</text>
+  <text x="720" y="194" text-anchor="middle" font-size="9" fill="#065F46">StatefulSet, PVC,</text>
+  <text x="720" y="207" text-anchor="middle" font-size="9" fill="#065F46">Service créés</text>
+
+  <!-- Arrows -->
+  <line x1="160" y1="180" x2="228" y2="180" stroke="#2563EB" stroke-width="1.5" marker-end="url(#coArrow)"/>
+  <text x="195" y="170" text-anchor="middle" font-size="9" fill="#1E3A8A">apply -f</text>
+
+  <line x1="370" y1="180" x2="438" y2="180" stroke="#2563EB" stroke-width="1.5" marker-end="url(#coArrow)"/>
+  <text x="405" y="170" text-anchor="middle" font-size="9" fill="#1E3A8A">watch</text>
+
+  <line x1="580" y1="180" x2="648" y2="180" stroke="#2563EB" stroke-width="1.5" marker-end="url(#coArrow)"/>
+  <text x="615" y="170" text-anchor="middle" font-size="9" fill="#1E3A8A">crée/màj</text>
+</svg>
