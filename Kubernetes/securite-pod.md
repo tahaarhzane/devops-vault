@@ -31,6 +31,8 @@ spec:
     runAsGroup: 1000
     runAsNonRoot: true
     fsGroup: 2000               # propriétaire des volumes montés
+    seccompProfile:
+      type: RuntimeDefault      # obligatoire au niveau restricted
   containers:
     - name: mon-app
       image: mon-registre/mon-app:2.4.1
@@ -52,6 +54,7 @@ spec:
 | `allowPrivilegeEscalation` | empêche un process d'obtenir plus de droits que son parent (ex. via un binaire setuid) |
 | `capabilities.drop` / `.add` | capabilities Linux fines (au lieu de "root ou pas root") — `drop: ["ALL"]` puis ajouter seulement ce qui est nécessaire est la pratique recommandée |
 | `privileged` | `true` = désactive quasiment tout l'isolement du conteneur, accès direct au matériel du nœud — équivalent root sur l'hôte |
+| `seccompProfile.type` | filtre les appels système autorisés. `RuntimeDefault` applique le profil par défaut du runtime ; **obligatoire** pour passer le niveau `restricted` |
 
 > [!CAUTION]
 > `privileged: true` n'est pas juste "root dans le conteneur" — c'est un accès quasi total au
@@ -83,7 +86,7 @@ Trois niveaux (du plus permissif au plus strict) :
 |---|---|
 | `privileged` | aucune restriction — équivalent à ne rien avoir |
 | `baseline` | bloque les cas connus d'évasion (pas de `privileged`, pas de `hostNetwork`/`hostPID` arbitraires...) sans casser la compatibilité |
-| `restricted` | applique les bonnes pratiques du champ ci-dessus (`runAsNonRoot`, `capabilities: drop ALL`, pas d'escalade de privilèges...) |
+| `restricted` | applique les bonnes pratiques du champ ci-dessus (`runAsNonRoot`, `capabilities: drop ALL`, `allowPrivilegeEscalation: false`, `seccompProfile: RuntimeDefault`...) — un pod sans `seccompProfile` est rejeté |
 
 Les trois modes (`enforce`/`audit`/`warn`) sont indépendants : `enforce` bloque réellement,
 `audit` journalise sans bloquer, `warn` affiche un avertissement à `kubectl apply` — utile

@@ -43,16 +43,24 @@ jour progressives (rolling updates) et les rollbacks.
 >   changement de label, instantané et facilement réversible, mais coûte 2x les ressources
 >   pendant la transition.
 > - **Canary** : un petit Deployment "canary" (ex. 1 réplica sur 20) partage le même `selector`
->   de Service que le Deployment principal — il reçoit une fraction du trafic proportionnelle à
->   son nombre de réplicas (load-balancing round-robin de kube-proxy, pas de pourcentage exact
+>   de Service que le Deployment principal — il reçoit une fraction du trafic **approximativement**
+>   proportionnelle à son nombre de réplicas (sélection aléatoire du backend par kube-proxy en
+>   mode iptables, voir [services-reseau.md](services-reseau.md) ; pas de pourcentage exact
 >   configurable nativement). Un contrôle plus fin (pourcentage exact, routage par header) passe
 >   par un Ingress controller avancé ou un service mesh (Istio, Linkerd).
 
 ### ⏮️ Rollback
 
-Chaque révision de Deployment est conservée (historique via `kubectl rollout history`).
-`kubectl rollout undo` revient à la révision précédente en recréant l'ancien ReplicaSet
-(ou en le rescalant s'il existe encore).
+Chaque révision d'un Deployment correspond à un ancien ReplicaSet conservé (scalé à 0) —
+c'est lui qui porte le template de la révision (historique via `kubectl rollout history`).
+`kubectl rollout undo` revient à une révision précédente en **re-scalant** ce ReplicaSet
+existant.
+
+> [!CAUTION]
+> `rollout undo` ne peut **pas** recréer un ReplicaSet déjà supprimé. Si
+> `revisionHistoryLimit` a nettoyé les anciens ReplicaSets, les révisions correspondantes
+> n'existent plus et le retour arrière vers elles est impossible — il faut alors
+> redéployer l'ancienne version depuis sa source (Git, chart Helm...).
 
 > [!WARNING]
 > - `replicas` définit le nombre désiré, mais le vrai contrôle du "combien de pods à la

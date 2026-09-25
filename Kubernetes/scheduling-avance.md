@@ -37,9 +37,15 @@ resources:
 
 | Classe | Condition | Ordre d'éviction |
 |---|---|---|
-| **Guaranteed** | requests == limits sur CPU et mémoire | jamais évincé en premier |
-| **Burstable** | requests < limits | évincé après les BestEffort |
-| **BestEffort** | aucune requests/limits définie | évincé en premier |
+| **Guaranteed** | **chaque** conteneur a des requests == limits, sur CPU **et** mémoire | jamais évincé en premier |
+| **Burstable** | au moins un conteneur définit une request ou une limite (CPU ou mémoire), sans remplir les conditions de Guaranteed | évincé après les BestEffort |
+| **BestEffort** | aucun conteneur ne définit de request ni de limite | évincé en premier |
+
+> [!NOTE]
+> Burstable n'est pas "requests < limits" : c'est la catégorie par défaut de tout ce qui n'est
+> ni Guaranteed ni BestEffort. Un pod avec une seule request mémoire et rien d'autre est
+> Burstable ; un pod dont un conteneur est parfaitement Guaranteed mais un autre n'a qu'une
+> request CPU l'est aussi.
 
 ### 🎯 Affinity / Anti-affinity
 

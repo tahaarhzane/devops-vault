@@ -63,7 +63,13 @@ image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
 - `helm upgrade <name> <chart>` : nouvelle révision de la Release, garde l'historique
   (`helm history <name>`).
 - `helm rollback <name> <revision>` : revient à une révision précédente.
-- `helm uninstall <name>` : supprime toutes les ressources créées par la Release.
+- `helm uninstall <name>` : supprime les ressources créées par la Release — **avec deux
+  exceptions** :
+  - les CRD installées depuis le dossier `crds/` restent en place (les supprimer effacerait
+    en cascade toutes les ressources custom du cluster, Helm refuse de le faire pour vous) ;
+  - les ressources annotées `helm.sh/resource-policy: keep` sont conservées (typiquement un
+    PVC ou un Secret qu'on ne veut pas perdre à la désinstallation) — elles deviennent
+    orphelines, plus gérées par aucune Release.
 
 > [!NOTE]
 > Une même Release est **scoped à un namespace** — le même Chart peut être installé

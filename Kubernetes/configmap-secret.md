@@ -42,12 +42,26 @@ Même mécanique que ConfigMap, mais :
 
 | | Variable d'env | Volume monté |
 |---|---|---|
-| Mise à jour à chaud | non (nécessite redémarrage du pod) | oui (kubelet resynchronise le fichier, l'appli doit le relire) |
-| Visible dans `kubectl describe pod` / logs de crash | oui (risque de fuite en cas de dump) | non |
+| Mise à jour à chaud | non (nécessite redémarrage du pod) | oui (kubelet resynchronise le fichier, l'appli doit le relire) — **sauf** montage avec `subPath` |
+| Surface d'exposition de la valeur | large (voir ci-dessous) | limitée au fichier monté |
 | Adapté aux gros fichiers de config | non | oui |
+
+`kubectl describe pod` ne montre **que la référence** au Secret (`secretKeyRef`), jamais sa
+valeur. Les vrais risques d'exposition d'une variable d'environnement sont ailleurs :
+- `/proc/<pid>/environ` : l'environnement du process est lisible par quiconque a accès au
+  conteneur (ou au nœud).
+- **Héritage** : chaque process enfant lancé par l'appli reçoit une copie de tout
+  l'environnement, secrets compris.
+- **Dumps** : beaucoup d'applis/frameworks écrivent leurs variables d'environnement dans les
+  logs ou les rapports de crash.
 
 → Pour des secrets sensibles, préférer le montage en volume (moins de surface d'exposition
 accidentelle) et une appli qui watch le fichier pour recharger sans redémarrer.
+
+> [!WARNING]
+> Un ConfigMap/Secret monté avec `subPath` (un seul fichier monté à un chemin précis) ne
+> reçoit **jamais** les mises à jour à chaud — le fichier reste figé à la valeur du démarrage
+> du pod. Il faut redémarrer le pod pour prendre en compte le changement.
 
 ### ✅ Bonnes pratiques et limites
 

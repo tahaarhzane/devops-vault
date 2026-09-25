@@ -24,9 +24,19 @@ Utilisé quand les pods ont besoin :
 - d'un **stockage persistant dédié** : chaque pod obtient son propre PVC (via
   `volumeClaimTemplates`), qui lui reste attaché même s'il est recréé sur un autre nœud —
   voir [stockage.md](stockage.md) pour le fonctionnement détaillé du PVC.
-- d'un **ordre de démarrage/arrêt garanti** : création séquentielle `0, 1, 2...`, suppression
-  dans l'ordre inverse. Utile pour les clusters à état (ex. un maître doit démarrer avant
-  les réplicas dans certains systèmes).
+- d'un **ordre de démarrage/arrêt garanti** : création séquentielle `0, 1, 2...` (chaque pod
+  attend que le précédent soit Running et Ready), terminaison dans l'ordre inverse lors d'un
+  **scale down**. Utile pour les clusters à état (ex. un maître doit démarrer avant les
+  réplicas dans certains systèmes).
+
+> [!WARNING]
+> - L'ordre inverse n'est **pas** garanti quand on supprime l'objet StatefulSet lui-même
+>   (`kubectl delete statefulset`) : les pods peuvent être terminés dans n'importe quel ordre.
+>   Pour un arrêt ordonné, scaler d'abord à zéro (`kubectl scale statefulset <name>
+>   --replicas=0`), attendre, puis supprimer.
+> - `podManagementPolicy: Parallel` désactive complètement la séquentialité : tous les pods
+>   sont créés/supprimés en même temps. L'identité stable et le stockage dédié restent, seul
+>   l'ordre disparaît (le défaut est `OrderedReady`).
 
 > [!NOTE]
 > **Cas d'usage typiques** : bases de données (PostgreSQL, MongoDB en cluster), Kafka,

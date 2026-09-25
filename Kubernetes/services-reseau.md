@@ -21,8 +21,13 @@ par labels.
 
 Un Service ne route pas activement le trafic lui-même : **kube-proxy**, sur chaque nœud,
 maintient des règles (iptables ou IPVS) qui interceptent le trafic destiné à la ClusterIP et
-le redirigent directement vers l'IP d'un des pods backend (load-balancing L4, round-robin par
-défaut).
+le redirigent directement vers l'IP d'un des pods backend (load-balancing L4).
+
+Le choix du backend dépend du mode de kube-proxy :
+- **iptables** (mode par défaut) : backend choisi **aléatoirement**, via des règles à
+  probabilité (1/N, puis 1/(N-1)...) — la répartition n'est égale qu'en moyenne statistique.
+- **IPVS** : vrai **round-robin** par défaut, plus d'autres algorithmes disponibles (least
+  connections, source hashing...) ; plus performant sur un grand nombre de Services.
 
 L'objet **Endpoints** (ou **EndpointSlice**) liste dynamiquement les IP de pods qui matchent
 le `selector` et sont **Ready** (readiness probe OK) — un pod non-ready est automatiquement
