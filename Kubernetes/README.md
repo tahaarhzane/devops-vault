@@ -50,12 +50,21 @@ Notes techniques sur Kubernetes : concepts, manifests, opérations, dépannage.
 - [securite-pod.md](securite-pod.md) — SecurityContext, Pod Security Admission, ServiceAccount
 - [crd-operators.md](crd-operators.md) — étendre l'API Kubernetes avec des types custom
 
+### 🧪 Exemples concrets
+
+Fil rouge unique : une API web `catalogue-api` et sa base PostgreSQL — [présentation du cas](exemples/README.md).
+
+- [exemples/01-deployment-annote.md](exemples/01-deployment-annote.md) — Deployment complet, chaque champ annoté
+- [exemples/02-deployment-helm.md](exemples/02-deployment-helm.md) — le même Deployment en chart Helm, correspondance values → template → rendu
+- [exemples/03-apiversion-par-kind.md](exemples/03-apiversion-par-kind.md) — référence des apiVersion par kind, versions retirées
+
 ## Ordre de lecture conseillé
 
 Pour découvrir Kubernetes de zéro : **architecture → pods → workloads-deployment →
 services-reseau → stockage → configmap-secret**, puis le reste selon le besoin
 (scheduling-avance, observabilite-probes, namespaces, operations-troubleshooting en
-référence).
+référence). Les [exemples concrets](exemples/README.md) se lisent une fois
+workloads-deployment et helm connus.
 
 Les concepts transverses à plusieurs domaines (RBAC, Ingress, NetworkPolicy) sont documentés
 dans [Concepts transverses](../Concepts%20transverses/README.md).

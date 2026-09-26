@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="370" viewBox="0 0 900 370" role="img" aria-label="Fil rouge des exemples : un client HTTP passe par un Ingress et un Service vers le Deployment catalogue-api, qui lit un ConfigMap et un Secret et appelle PostgreSQL via un Service, un StatefulSet et un PVC, le tout dans le namespace boutique" style="font-family: Helvetica, Arial, sans-serif;">
+  <title>Fil rouge : catalogue-api et sa base PostgreSQL dans le namespace boutique</title>
+
+  <defs>
+    <marker id="uArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#374151"/>
+    </marker>
+    <marker id="uArrowAmber" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#D97706"/>
+    </marker>
+    <g id="icoCubeU" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="10,2 16.93,6 16.93,14 10,18 3.07,14 3.07,6"/>
+      <line x1="10" y1="10" x2="10" y2="2"/>
+      <line x1="10" y1="10" x2="16.93" y2="14"/>
+      <line x1="10" y1="10" x2="3.07" y2="14"/>
+    </g>
+    <g id="icoGearU" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="10" cy="10" r="4.2"/>
+      <line x1="14.2" y1="10" x2="18" y2="10"/>
+      <line x1="12.1" y1="13.65" x2="14" y2="16.93"/>
+      <line x1="7.9" y1="13.65" x2="6" y2="16.93"/>
+      <line x1="5.8" y1="10" x2="2" y2="10"/>
+      <line x1="7.9" y1="6.35" x2="6" y2="3.07"/>
+      <line x1="12.1" y1="6.35" x2="14" y2="3.07"/>
+    </g>
+    <g id="icoFileU" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5,2 H12 L16,6 V18 H5 Z"/>
+      <path d="M12,2 V6 H16"/>
+      <line x1="7.5" y1="10" x2="13.5" y2="10"/>
+      <line x1="7.5" y1="13" x2="13.5" y2="13"/>
+      <line x1="7.5" y1="16" x2="11" y2="16"/>
+    </g>
+    <g id="icoShieldU" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10,2 L17,5 V10 C17,14.5 14,17.5 10,19 C6,17.5 3,14.5 3,10 V5 Z"/>
+      <path d="M7,10.5 L9.3,12.8 L13.5,8"/>
+    </g>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="370" fill="#ffffff"/>
+
+  <!-- Namespace frame -->
+  <rect x="180" y="10" width="710" height="350" rx="12" fill="#F9FAFB" stroke="#6B7280" stroke-width="1.2" stroke-dasharray="6 4"/>
+  <text x="196" y="30" font-size="11" font-weight="700" fill="#4B5563">namespace : boutique</text>
+
+  <!-- Row 1: ConfigMap + Secret -->
+  <rect x="540" y="36" width="160" height="46" rx="8" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+  <use href="#icoFileU" transform="translate(550,48) scale(0.8)" stroke="#92400E"/>
+  <text x="628" y="54" text-anchor="middle" font-size="11" font-weight="700" fill="#92400E">ConfigMap</text>
+  <text x="628" y="70" text-anchor="middle" font-size="9" fill="#92400E">catalogue-api-config</text>
+
+  <rect x="720" y="36" width="160" height="46" rx="8" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+  <use href="#icoShieldU" transform="translate(729,48) scale(0.8)" stroke="#92400E"/>
+  <text x="808" y="54" text-anchor="middle" font-size="11" font-weight="700" fill="#92400E">Secret</text>
+  <text x="808" y="70" text-anchor="middle" font-size="9" fill="#92400E">catalogue-db-credentials</text>
+
+  <line x1="620" y1="82" x2="620" y2="112" stroke="#D97706" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#uArrowAmber)"/>
+  <text x="626" y="101" font-size="9" fill="#92400E">envFrom</text>
+  <line x1="800" y1="82" x2="800" y2="112" stroke="#D97706" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#uArrowAmber)"/>
+  <text x="806" y="101" font-size="9" fill="#92400E">secretKeyRef</text>
+
+  <!-- Row 2: Client -> Ingress -> Service -> Deployment -->
+  <rect x="20" y="142" width="130" height="56" rx="8" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+  <text x="85" y="166" text-anchor="middle" font-size="11.5" font-weight="700" fill="#374151">Client HTTP</text>
+  <text x="85" y="183" text-anchor="middle" font-size="9" fill="#4B5563">catalogue.example.com</text>
+
+  <line x1="150" y1="170" x2="198" y2="170" stroke="#374151" stroke-width="1.5" marker-end="url(#uArrow)"/>
+
+  <rect x="200" y="142" width="140" height="56" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="270" y="166" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1E3A8A">Ingress</text>
+  <text x="270" y="183" text-anchor="middle" font-size="9" fill="#1E3A8A">catalogue-api</text>
+
+  <line x1="340" y1="170" x2="368" y2="170" stroke="#374151" stroke-width="1.5" marker-end="url(#uArrow)"/>
+
+  <rect x="370" y="142" width="140" height="56" rx="8" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="440" y="166" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1E3A8A">Service</text>
+  <text x="440" y="183" text-anchor="middle" font-size="9" fill="#1E3A8A">catalogue-api · :80 → http</text>
+
+  <line x1="510" y1="170" x2="538" y2="170" stroke="#374151" stroke-width="1.5" marker-end="url(#uArrow)"/>
+
+  <rect x="540" y="114" width="340" height="112" rx="10" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
+  <use href="#icoGearU" transform="translate(552,122) scale(0.8)" stroke="#1E3A8A"/>
+  <text x="574" y="135" font-size="11.5" font-weight="700" fill="#1E3A8A">Deployment catalogue-api</text>
+  <text x="866" y="135" text-anchor="end" font-size="9" fill="#3B5FA0">replicas: 3</text>
+
+  <rect x="555" y="152" width="98" height="58" rx="7" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.3"/>
+  <use href="#icoCubeU" transform="translate(592,158) scale(0.8)" stroke="#1E3A8A"/>
+  <text x="604" y="194" text-anchor="middle" font-size="10" fill="#1E3A8A">Pod api</text>
+  <text x="604" y="205" text-anchor="middle" font-size="8.5" fill="#3B5FA0">:8080</text>
+
+  <rect x="661" y="152" width="98" height="58" rx="7" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.3"/>
+  <use href="#icoCubeU" transform="translate(698,158) scale(0.8)" stroke="#1E3A8A"/>
+  <text x="710" y="194" text-anchor="middle" font-size="10" fill="#1E3A8A">Pod api</text>
+  <text x="710" y="205" text-anchor="middle" font-size="8.5" fill="#3B5FA0">:8080</text>
+
+  <rect x="767" y="152" width="98" height="58" rx="7" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.3"/>
+  <use href="#icoCubeU" transform="translate(804,158) scale(0.8)" stroke="#1E3A8A"/>
+  <text x="816" y="194" text-anchor="middle" font-size="10" fill="#1E3A8A">Pod api</text>
+  <text x="816" y="205" text-anchor="middle" font-size="8.5" fill="#3B5FA0">:8080</text>
+
+  <!-- Deployment -> Service postgres -->
+  <line x1="800" y1="226" x2="800" y2="266" stroke="#374151" stroke-width="1.5" marker-end="url(#uArrow)"/>
+  <text x="793" y="246" text-anchor="end" font-size="9" fill="#374151">SQL · DB_HOST=postgres</text>
+
+  <!-- Row 3: PVC <- StatefulSet <- Service postgres -->
+  <rect x="720" y="268" width="160" height="56" rx="8" fill="#FFFFFF" stroke="#059669" stroke-width="1.5"/>
+  <text x="800" y="292" text-anchor="middle" font-size="11.5" font-weight="700" fill="#065F46">Service postgres</text>
+  <text x="800" y="309" text-anchor="middle" font-size="9" fill="#065F46">:5432</text>
+
+  <line x1="720" y1="296" x2="682" y2="296" stroke="#374151" stroke-width="1.5" marker-end="url(#uArrow)"/>
+
+  <rect x="440" y="250" width="240" height="94" rx="10" fill="#ECFDF5" stroke="#059669" stroke-width="2"/>
+  <use href="#icoGearU" transform="translate(452,258) scale(0.8)" stroke="#065F46"/>
+  <text x="474" y="271" font-size="11.5" font-weight="700" fill="#065F46">StatefulSet postgres</text>
+  <rect x="500" y="284" width="120" height="46" rx="7" fill="#FFFFFF" stroke="#059669" stroke-width="1.3"/>
+  <use href="#icoCubeU" transform="translate(510,297) scale(0.8)" stroke="#065F46"/>
+  <text x="570" y="311" text-anchor="middle" font-size="10" fill="#065F46">postgres-0</text>
+
+  <line x1="440" y1="296" x2="402" y2="296" stroke="#374151" stroke-width="1.5" marker-end="url(#uArrow)"/>
+
+  <g>
+    <rect x="220" y="278" width="180" height="46" fill="#D1FAE5"/>
+    <line x1="220" y1="278" x2="220" y2="324" stroke="#059669" stroke-width="1.5"/>
+    <line x1="400" y1="278" x2="400" y2="324" stroke="#059669" stroke-width="1.5"/>
+    <path d="M220,324 A90,9 0 0,0 400,324" fill="none" stroke="#059669" stroke-width="1.5"/>
+    <ellipse cx="310" cy="278" rx="90" ry="9" fill="#D1FAE5" stroke="#059669" stroke-width="1.5"/>
+    <text x="310" y="303" text-anchor="middle" font-size="11" font-weight="700" fill="#065F46">PVC</text>
+    <text x="310" y="318" text-anchor="middle" font-size="9" fill="#065F46">data-postgres-0</text>
+  </g>
+
+  <!-- Legend -->
+  <rect x="20" y="268" width="12" height="12" rx="2" fill="#EFF6FF" stroke="#2563EB"/>
+  <text x="38" y="278" font-size="9.5" fill="#374151">API (stateless)</text>
+  <rect x="20" y="288" width="12" height="12" rx="2" fill="#ECFDF5" stroke="#059669"/>
+  <text x="38" y="298" font-size="9.5" fill="#374151">base (stateful)</text>
+  <rect x="20" y="308" width="12" height="12" rx="2" fill="#FEF3C7" stroke="#D97706"/>
+  <text x="38" y="318" font-size="9.5" fill="#374151">configuration</text>
+</svg>
